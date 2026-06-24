@@ -19,7 +19,7 @@ const HERO_DATA = {
   titleLine1: "ILLUMINATE",
   titleLine2: "YOUR NATURAL",
   titleLine3: "RADIANCE.",
-  subtitle: "Discover our curated collection for healthy, glowing skin.",
+  subtitle: "",
 };
 
 const PRODUCTS_DATA = [
