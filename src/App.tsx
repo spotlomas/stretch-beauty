@@ -76,16 +76,16 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
       onClick={onClick}
       className="flex flex-col items-center cursor-pointer group"
     >
-      {/* imagen */}
+      {/* imagen con borde redondeado */}
       <div
-        className="w-full rounded-2xl md:rounded-[24px] flex items-center justify-center overflow-hidden mb-3 md:mb-5 transition-shadow duration-300 hover:shadow-lg"
+        className="w-full rounded-3xl flex items-center justify-center overflow-hidden mb-4 transition-shadow duration-300 hover:shadow-lg aspect-square sm:aspect-auto"
         style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(12px, 4vw, 40px)" }}
       >
         <img src={product.image} alt={product.name}
           className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
       </div>
       {/* nombre */}
-      <p className="font-inter font-medium uppercase tracking-wide text-[#2A2A2A] text-center leading-tight text-[9px] sm:text-[11px] md:text-sm px-1">
+      <p className="font-inter font-medium uppercase tracking-wide text-[#2A2A2A] text-center leading-tight text-[10px] sm:text-xs px-1 line-clamp-2">
         {product.name}
       </p>
     </motion.div>
@@ -122,7 +122,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
           <div className="w-9 h-[3px] rounded-full bg-[#C8C8C0]" />
         </div>
 
-        {/* botón X — posición absoluta dentro del sheet */}
+        {/* botón X */}
         <button
           onClick={onClose}
           className="absolute top-5 right-5 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-[#E5E3DB] hover:bg-[#D8D6CE] transition-colors cursor-pointer"
@@ -133,23 +133,25 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
         <div className="px-6 pb-8 pt-3 sm:pt-8 flex flex-col items-center text-center">
 
-          {/* imagen */}
-          <div className="w-full rounded-2xl flex items-center justify-center mb-7 overflow-hidden"
-            style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(20px,6vw,48px)" }}>
+          {/* imagen - más compacta en móvil */}
+          <div className="w-full rounded-3xl flex items-center justify-center mb-6 sm:mb-8 overflow-hidden"
+            style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(20px, 5vw, 48px)" }}>
             <img src={product.image} alt={product.name}
-              className="w-full h-auto object-contain max-h-56 sm:max-h-72" />
+              className="w-full h-auto object-contain max-h-48 sm:max-h-72" />
           </div>
 
-          {/* nombre */}
-          <h3 className="font-playfair text-base sm:text-xl text-[#2A2A2A] uppercase tracking-wider mb-2 leading-snug px-2">
+          {/* nombre - "Mantequilla Hidratante" es estático */}
+          <h3 className="font-playfair text-sm sm:text-lg text-[#2A2A2A] uppercase tracking-wider mb-2 leading-snug px-2">
             Mantequilla Hidratante
           </h3>
-          <p className="font-playfair text-lg sm:text-2xl text-[#2A2A2A] uppercase tracking-wide mb-8 leading-snug px-2 font-normal italic">
+
+          {/* nombre del producto en itálica */}
+          <p className="font-playfair text-base sm:text-xl text-[#2A2A2A] uppercase tracking-wide mb-6 sm:mb-8 leading-snug px-2 font-normal italic">
             {product.name}
           </p>
 
           {/* separador */}
-          <div className="w-12 h-px bg-[#C8C8C0] mb-8" />
+          <div className="w-12 h-px bg-[#C8C8C0] mb-6 sm:mb-8" />
 
           {/* descripción */}
           <div className="w-full mb-6 text-left">
@@ -163,10 +165,10 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             <p className="font-inter text-sm text-[#6A6A6A] leading-relaxed italic">{product.ingredients}</p>
           </div>
 
-          {/* CTA */}
+          {/* CTA - botón grande y prominente */}
           <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
-            className="w-full py-4 bg-[#2A2A2A] text-[#F4F3ED] rounded-full font-inter text-xs uppercase tracking-[0.2em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2">
-            <MessageCircle size={15} /> Consultar por WhatsApp
+            className="w-full py-4 bg-[#2A2A2A] text-[#F4F3ED] rounded-full font-inter text-xs uppercase tracking-[0.2em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2 font-medium">
+            <MessageCircle size={16} /> Consultar por WhatsApp
           </a>
         </div>
       </motion.div>
@@ -265,8 +267,8 @@ export default function App() {
                     <div className="w-10 h-px bg-[#C8C8C0]" />
                   </div>
 
-                  {/* grid */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7 md:gap-10 items-start">
+                  {/* grid - 2 columnas en móvil, 3 en tablet, 4 en desktop */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-start">
                     {PRODUCTS_DATA.map((p, i) => (
                       <ProductCard key={p.id} product={p} index={i} onClick={() => setSelectedProduct(p)} />
                     ))}
@@ -279,7 +281,7 @@ export default function App() {
             {currentView === "about" && (
               <motion.div key="about" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                 className="w-full max-w-lg mx-auto flex flex-col items-center text-center py-14 md:py-24">
-                <img src="/images/Gemini_Generated_Image_b5gbk1b5gbk1b5gb-removebg-preview.png"
+                <img src="/images/Gemini_Generated_Image_b5gbk1b5gb-removebg-preview.png"
                   alt="ISD" className="w-40 sm:w-56 md:w-72 h-auto object-contain mb-12 md:mb-16 opacity-85" />
                 <div className="w-8 h-px bg-[#C8C8C0] mb-10" />
                 <div className="space-y-6 font-inter text-sm text-[#4A4A4A] leading-loose flex flex-col items-center">
