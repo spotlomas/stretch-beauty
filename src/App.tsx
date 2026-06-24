@@ -101,7 +101,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center"
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4 sm:p-0"
       style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
     >
       {/* clic en fondo cierra */}
@@ -109,65 +109,56 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
       <motion.div
         key="sheet"
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "100%" }}
-        transition={{ type: "spring", damping: 32, stiffness: 280 }}
-        className="relative z-10 w-full sm:max-w-md mx-auto bg-[#F4F3ED] rounded-t-[36px] sm:rounded-[36px] overflow-y-auto"
-        style={{ maxHeight: "90vh" }}
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className="relative z-10 w-full max-w-sm bg-[#F4F3ED] rounded-3xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* handle bar móvil */}
-        <div className="flex justify-center pt-4 pb-1 sm:hidden">
-          <div className="w-9 h-[3px] rounded-full bg-[#C8C8C0]" />
-        </div>
-
         {/* botón X */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-[#E5E3DB] hover:bg-[#D8D6CE] transition-colors cursor-pointer"
+          className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white hover:bg-gray-100 transition-colors cursor-pointer border border-gray-200"
           aria-label="Cerrar"
         >
-          <X size={16} strokeWidth={2.5} color="#2A2A2A" />
+          <X size={18} strokeWidth={2} color="#2A2A2A" />
         </button>
 
-        <div className="px-6 pb-8 pt-3 sm:pt-8 flex flex-col items-center text-center">
+        <div className="px-8 py-10 flex flex-col items-center text-center">
 
-          {/* imagen - más compacta en móvil */}
-          <div className="w-full rounded-3xl flex items-center justify-center mb-6 sm:mb-8 overflow-hidden"
-            style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(20px, 5vw, 48px)" }}>
+          {/* imagen con bordes redondeados y shadow */}
+          <div className="w-full rounded-2xl flex items-center justify-center mb-8 overflow-hidden shadow-sm"
+            style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "32px 20px" }}>
             <img src={product.image} alt={product.name}
-              className="w-full h-auto object-contain max-h-48 sm:max-h-72" />
+              className="w-full h-auto object-contain max-h-64" />
           </div>
 
           {/* nombre - "Mantequilla Hidratante" es estático */}
-          <h3 className="font-playfair text-sm sm:text-lg text-[#2A2A2A] uppercase tracking-wider mb-2 leading-snug px-2">
+          <h3 className="font-playfair text-base text-[#2A2A2A] uppercase tracking-wider mb-1 leading-snug">
             Mantequilla Hidratante
           </h3>
 
           {/* nombre del producto en itálica */}
-          <p className="font-playfair text-base sm:text-xl text-[#2A2A2A] uppercase tracking-wide mb-6 sm:mb-8 leading-snug px-2 font-normal italic">
+          <p className="font-playfair text-lg text-[#2A2A2A] uppercase tracking-wide mb-6 leading-snug font-normal italic">
             {product.name}
           </p>
 
-          {/* separador */}
-          <div className="w-12 h-px bg-[#C8C8C0] mb-6 sm:mb-8" />
-
           {/* descripción */}
           <div className="w-full mb-6 text-left">
-            <p className="font-inter text-[10px] uppercase tracking-[0.2em] text-[#9A9A90] mb-2">Descripción</p>
-            <p className="font-inter text-sm text-[#4A4A4A] leading-relaxed">{product.description}</p>
+            <p className="font-inter text-[10px] uppercase tracking-[0.15em] text-[#9A9A90] mb-2 font-medium">Descripción</p>
+            <p className="font-inter text-sm text-[#2A2A2A] leading-relaxed">{product.description}</p>
           </div>
 
           {/* ingredientes */}
           <div className="w-full mb-8 text-left">
-            <p className="font-inter text-[10px] uppercase tracking-[0.2em] text-[#9A9A90] mb-2">Ingredientes Destacados</p>
-            <p className="font-inter text-sm text-[#6A6A6A] leading-relaxed italic">{product.ingredients}</p>
+            <p className="font-inter text-[10px] uppercase tracking-[0.15em] text-[#9A9A90] mb-2 font-medium">Ingredientes Destacados</p>
+            <p className="font-inter text-sm text-[#2A2A2A] leading-relaxed italic">{product.ingredients}</p>
           </div>
 
           {/* CTA - botón grande y prominente */}
           <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
-            className="w-full py-4 bg-[#2A2A2A] text-[#F4F3ED] rounded-full font-inter text-xs uppercase tracking-[0.2em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2 font-medium">
+            className="w-full py-3 bg-[#2A2A2A] text-white rounded-full font-inter text-xs uppercase tracking-[0.15em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2 font-semibold">
             <MessageCircle size={16} /> Consultar por WhatsApp
           </a>
         </div>
