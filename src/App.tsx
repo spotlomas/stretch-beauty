@@ -1,18 +1,6 @@
 import { useState, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useInView,
-} from "framer-motion";
-import {
-  Menu,
-  X,
-  MessageCircle,
-} from "lucide-react";
-
-/* ══════════════════════════════════════════════════════════════════
-    ✏️ DATOS CONFIGURABLES (MAPPED TO PUBLIC ASSETS)
-   ══════════════════════════════════════════════════════════════════ */
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { Menu, X, MessageCircle } from "lucide-react";
 
 const NAV_DATA = {
   brand: "INTER",
@@ -35,127 +23,40 @@ const HERO_DATA = {
 };
 
 const PRODUCTS_DATA = [
-  {
-    id: 1,
-    name: "Mantequilla Hidratante - Milk & Honey",
-    description: "Crema hidratante no grasa de absorción profunda diseñada para suavizar y brindar un aspecto radiante a la piel de manos, pies y cuerpo.",
-    ingredients: "Extracto de miel pura, proteínas de leche, lípidos hidratantes naturales.",
-    image: "/images/milk_and_honey.png",
-    bgColor: "bg-[#E8DCCB]",
-  },
-  {
-    id: 2,
-    name: "Mantequilla Hidratante - Lavender & Chamomile",
-    description: "Fórmula hidratante ligera y calmante. Ayuda a relajar la piel estresada mientras retiene la humedad natural sin dejar residuos grasos.",
-    ingredients: "Aceite esencial de lavanda, extracto de manzanilla, antioxidantes botánicos.",
-    image: "/images/lavender_chamomile.png",
-    bgColor: "bg-[#DFE1CD]",
-  },
-  {
-    id: 3,
-    name: "Mantequilla Hidratante - Citrus & Wild Berry",
-    description: "Tratamiento intensivo revitalizante con propiedades antioxidantes que suavizan la textura de la piel y despiertan su brillo natural.",
-    ingredients: "Extractos cítricos, extracto de moras silvestres, vitamina C, agentes acondicionadores.",
-    image: "/images/citrus_wild_berry.png",
-    bgColor: "bg-[#D5E0D2]",
-  },
-  {
-    id: 4,
-    name: "Mantequilla Hidratante - Vanilla Bean & Sugar",
-    description: "Exquisita infusión hidratante no grasa que reconforta la piel seca, mejorando la elasticidad y dejando un acabado terso y sedoso.",
-    ingredients: "Extracto de vainilla de Madagascar, caña de azúcar natural, complejos emolientes.",
-    image: "/images/vanilla_bean_sugar.png",
-    bgColor: "bg-[#E8DCCB]",
-  },
-  {
-    id: 5,
-    name: "Mantequilla Hidratante - Pomegranate & Fig",
-    description: "Potente fórmula rejuvenecedora que aprovecha las propiedades antioxidantes de las frutas para suavizar, nutrir y proteger el tejido cutáneo.",
-    ingredients: "Extracto de granada, extracto de higo, nutrientes esenciales regenerativos.",
-    image: "/images/pomegranate_fig.png",
-    bgColor: "bg-[#DFE1CD]",
-  },
-  {
-    id: 6,
-    name: "Mantequilla Hidratante - White Limetta & Aloe Vera",
-    description: "Una experiencia refrescante e hidrorreguladora ideal para mantener la piel suave, fresca, calmada y completamente protegida durante todo el día.",
-    ingredients: "Extracto de limeta blanca, gel purificado de aloe vera, factores de hidratación natural.",
-    image: "/images/white_limetta_aloe.png",
-    bgColor: "bg-[#D5E0D2]",
-  },
-  {
-    id: 7,
-    name: "Mantequilla Hidratante - Coconut & White Ginger",
-    description: "Fórmula suntuosa ultra-hidratante que alivia las zonas más ásperas del cuerpo, aportando tersura continua y un escudo emoliente no graso.",
-    ingredients: "Aceite de coco fraccionado, extracto de jengibre blanco, aceites acondicionadores ligeros.",
-    image: "/images/coconut_white_ginger.png",
-    bgColor: "bg-[#E8DCCB]",
-  }
+  { id: 1, name: "Milk & Honey", description: "Crema hidratante no grasa de absorción profunda diseñada para suavizar y brindar un aspecto radiante a la piel de manos, pies y cuerpo.", ingredients: "Extracto de miel pura, proteínas de leche, lípidos hidratantes naturales.", image: "/images/milk_and_honey.png", bgColor: "#E8DCCB" },
+  { id: 2, name: "Lavender & Chamomile", description: "Fórmula hidratante ligera y calmante. Ayuda a relajar la piel estresada mientras retiene la humedad natural sin dejar residuos grasos.", ingredients: "Aceite esencial de lavanda, extracto de manzanilla, antioxidantes botánicos.", image: "/images/lavender_chamomile.png", bgColor: "#DFE1CD" },
+  { id: 3, name: "Citrus & Wild Berry", description: "Tratamiento intensivo revitalizante con propiedades antioxidantes que suavizan la textura de la piel y despiertan su brillo natural.", ingredients: "Extractos cítricos, extracto de moras silvestres, vitamina C, agentes acondicionadores.", image: "/images/citrus_wild_berry.png", bgColor: "#D5E0D2" },
+  { id: 4, name: "Vanilla Bean & Sugar", description: "Exquisita infusión hidratante no grasa que reconforta la piel seca, mejorando la elasticidad y dejando un acabado terso y sedoso.", ingredients: "Extracto de vainilla de Madagascar, caña de azúcar natural, complejos emolientes.", image: "/images/vanilla_bean_sugar.png", bgColor: "#E8DCCB" },
+  { id: 5, name: "Pomegranate & Fig", description: "Potente fórmula rejuvenecedora que aprovecha las propiedades antioxidantes de las frutas para suavizar, nutrir y proteger el tejido cutáneo.", ingredients: "Extracto de granada, extracto de higo, nutrientes esenciales regenerativos.", image: "/images/pomegranate_fig.png", bgColor: "#DFE1CD" },
+  { id: 6, name: "White Limetta & Aloe", description: "Una experiencia refrescante e hidrorreguladora ideal para mantener la piel suave, fresca, calmada y completamente protegida durante todo el día.", ingredients: "Extracto de limeta blanca, gel purificado de aloe vera, factores de hidratación natural.", image: "/images/white_limetta_aloe.png", bgColor: "#D5E0D2" },
+  { id: 7, name: "Coconut & White Ginger", description: "Fórmula suntuosa ultra-hidratante que alivia las zonas más ásperas del cuerpo, aportando tersura continua y un escudo emoliente no graso.", ingredients: "Aceite de coco fraccionado, extracto de jengibre blanco, aceites acondicionadores ligeros.", image: "/images/coconut_white_ginger.png", bgColor: "#E8DCCB" },
 ];
 
-/* ══════════════════════════════════════════════════════════════════
-    INTERFACES Y COMPONENTES AUXILIARES
-   ══════════════════════════════════════════════════════════════════ */
-
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  ingredients: string;
-  image: string;
-  bgColor: string;
-}
+interface Product { id: number; name: string; description: string; ingredients: string; image: string; bgColor: string; }
 
 function InstagramIcon({ size = 20 }: { size?: number }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
     </svg>
   );
 }
 
 function TikTokIcon({ size = 20 }: { size?: number }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
     </svg>
   );
 }
 
-function StaggeredText({ text, className = "", delay = 0 }: { text: string; className?: string; delay?: number }) {
-  const words = text.split(" ");
+function StaggeredText({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
-    <span className={className}>
-      {words.map((word, i) => (
-        <motion.span
-          key={i}
-          className="inline-block mx-[0.15em]"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: delay + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-        >
+    <span>
+      {text.split(" ").map((word, i) => (
+        <motion.span key={i} className="inline-block mx-[0.12em]"
+          initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, delay: delay + i * 0.1, ease: [0.22, 1, 0.36, 1] }}>
           {word}
         </motion.span>
       ))}
@@ -163,50 +64,120 @@ function StaggeredText({ text, className = "", delay = 0 }: { text: string; clas
   );
 }
 
-function ArrivalCard({ product, index, onClick }: { product: Product; index: number; onClick: () => void }) {
+function ProductCard({ product, index, onClick }: { product: Product; index: number; onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const isInView = useInView(ref, { once: true, margin: "-20px" });
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+    <motion.div ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.4, delay: index * 0.05 }}
       onClick={onClick}
-      className="flex flex-col items-center justify-start text-center w-full cursor-pointer group h-full"
+      className="flex flex-col items-center cursor-pointer group"
     >
-      {/* ── Contenedor de imagen: más padding vertical para que respire ── */}
+      {/* imagen */}
       <div
-        className={`w-full h-auto ${product.bgColor} rounded-[32px] p-12 py-14 mb-10 flex items-center justify-center mix-blend-multiply hover:shadow-md transition-all duration-300 overflow-hidden`}
+        className="w-full rounded-2xl md:rounded-[24px] flex items-center justify-center overflow-hidden mb-3 md:mb-5 transition-shadow duration-300 hover:shadow-lg"
+        style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(12px, 4vw, 40px)" }}
       >
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500 block"
-        />
+        <img src={product.image} alt={product.name}
+          className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500" />
       </div>
-
-      {/* ── Título: más separación respecto a la imagen y altura mínima mayor ── */}
-      <h4 className="font-inter text-sm md:text-base text-[#2A2A2A] font-medium uppercase tracking-wide text-center px-2 mt-2 min-h-[56px] flex items-center justify-center">
+      {/* nombre */}
+      <p className="font-inter font-medium uppercase tracking-wide text-[#2A2A2A] text-center leading-tight text-[9px] sm:text-[11px] md:text-sm px-1">
         {product.name}
-      </h4>
-
-      {/* ── Descripción: mayor margen superior y más padding lateral ── */}
-      <p className="font-inter text-xs text-[#6A6A6A] mt-4 text-center px-6 line-clamp-2 leading-relaxed">
-        {product.description}
       </p>
     </motion.div>
   );
 }
 
-/* ══════════════════════════════════════════════════════════════════
-    APP PRINCIPAL
-   ══════════════════════════════════════════════════════════════════ */
+/* ─── MODAL ─── */
+function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
+  return (
+    <motion.div
+      key="backdrop"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.25 }}
+      className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center"
+      style={{ backgroundColor: "rgba(0,0,0,0.45)", backdropFilter: "blur(6px)" }}
+    >
+      {/* clic en fondo cierra */}
+      <div className="absolute inset-0" onClick={onClose} />
 
+      <motion.div
+        key="sheet"
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        exit={{ y: "100%" }}
+        transition={{ type: "spring", damping: 32, stiffness: 280 }}
+        className="relative z-10 w-full sm:max-w-md mx-auto bg-[#F4F3ED] rounded-t-[36px] sm:rounded-[36px] overflow-y-auto"
+        style={{ maxHeight: "90vh" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* handle bar móvil */}
+        <div className="flex justify-center pt-4 pb-1 sm:hidden">
+          <div className="w-9 h-[3px] rounded-full bg-[#C8C8C0]" />
+        </div>
+
+        {/* botón X — posición absoluta dentro del sheet */}
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-[#E5E3DB] hover:bg-[#D8D6CE] transition-colors cursor-pointer"
+          aria-label="Cerrar"
+        >
+          <X size={16} strokeWidth={2.5} color="#2A2A2A" />
+        </button>
+
+        <div className="px-6 pb-8 pt-3 sm:pt-8 flex flex-col items-center text-center">
+
+          {/* imagen */}
+          <div className="w-full rounded-2xl flex items-center justify-center mb-7 overflow-hidden"
+            style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(20px,6vw,48px)" }}>
+            <img src={product.image} alt={product.name}
+              className="w-full h-auto object-contain max-h-56 sm:max-h-72" />
+          </div>
+
+          {/* nombre */}
+          <h3 className="font-playfair text-base sm:text-xl text-[#2A2A2A] uppercase tracking-wider mb-2 leading-snug px-2">
+            Mantequilla Hidratante
+          </h3>
+          <p className="font-playfair text-lg sm:text-2xl text-[#2A2A2A] uppercase tracking-wide mb-8 leading-snug px-2 font-normal italic">
+            {product.name}
+          </p>
+
+          {/* separador */}
+          <div className="w-12 h-px bg-[#C8C8C0] mb-8" />
+
+          {/* descripción */}
+          <div className="w-full mb-6 text-left">
+            <p className="font-inter text-[10px] uppercase tracking-[0.2em] text-[#9A9A90] mb-2">Descripción</p>
+            <p className="font-inter text-sm text-[#4A4A4A] leading-relaxed">{product.description}</p>
+          </div>
+
+          {/* ingredientes */}
+          <div className="w-full mb-8 text-left">
+            <p className="font-inter text-[10px] uppercase tracking-[0.2em] text-[#9A9A90] mb-2">Ingredientes Destacados</p>
+            <p className="font-inter text-sm text-[#6A6A6A] leading-relaxed italic">{product.ingredients}</p>
+          </div>
+
+          {/* CTA */}
+          <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
+            className="w-full py-4 bg-[#2A2A2A] text-[#F4F3ED] rounded-full font-inter text-xs uppercase tracking-[0.2em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2">
+            <MessageCircle size={15} /> Consultar por WhatsApp
+          </a>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ─── APP ─── */
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'contact'>('home');
+  const [currentView, setCurrentView] = useState<"home" | "about" | "contact">("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
   const handleLinkClick = (link: string) => {
@@ -216,195 +187,130 @@ export default function App() {
     else if (link === "contact") setCurrentView("contact");
   };
 
+  const closeModal = () => setSelectedProduct(null);
+
   return (
     <div className="relative bg-[#F4F3ED] text-[#2A2A2A] min-h-screen flex flex-col justify-between">
       <div>
-        {/* ──────────── NAVEGACIÓN ──────────── */}
-        <nav className="w-full px-6 py-10 md:px-12 flex items-center justify-between z-30 relative bg-[#F4F3ED]">
-          <button
-            className="text-[#2A2A2A] hover:opacity-70 transition-opacity z-[60] cursor-pointer"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+
+        {/* NAV */}
+        <nav className="w-full px-5 py-5 md:px-12 md:py-8 flex items-center justify-between z-30 relative bg-[#F4F3ED]">
+          <button onClick={() => setMenuOpen(!menuOpen)}
+            className="text-[#2A2A2A] hover:opacity-60 transition-opacity z-[60] cursor-pointer">
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
-
-          <div className="flex flex-col items-center cursor-pointer" onClick={() => setCurrentView('home')}>
-            <span className="font-playfair text-2xl md:text-3xl text-[#2A2A2A] leading-none uppercase tracking-wide">
-              {NAV_DATA.brand}
-            </span>
-            <span className="font-inter text-[8px] md:text-[10px] tracking-[0.3em] uppercase text-[#4A4A4A] mt-1">
-              {NAV_DATA.brandSubtitle}
-            </span>
+          <div className="flex flex-col items-center cursor-pointer" onClick={() => setCurrentView("home")}>
+            <span className="font-playfair text-xl md:text-3xl text-[#2A2A2A] leading-none uppercase tracking-wide">{NAV_DATA.brand}</span>
+            <span className="font-inter text-[7px] md:text-[9px] tracking-[0.35em] uppercase text-[#6A6A6A] mt-1">{NAV_DATA.brandSubtitle}</span>
           </div>
-
-          <div className="w-6 h-6 flex items-center justify-center">
-            {/* Espacio equilibrador estructural */}
-          </div>
+          <div className="w-6 h-6" />
         </nav>
 
-        {/* ──────────── MENÚ MÓVIL ──────────── */}
+        {/* MENÚ OVERLAY */}
         <AnimatePresence>
           {menuOpen && (
-            <motion.div
-              initial={{ y: "-100%" }}
-              animate={{ y: "0%" }}
-              exit={{ y: "-100%" }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-50 bg-[#F4F3ED] flex flex-col items-center justify-center"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-50 bg-[#F4F3ED] flex flex-col items-center justify-center gap-0">
               {NAV_DATA.links.map((link, i) => (
-                <motion.button
-                  key={link}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
-                  className="text-2xl font-inter uppercase tracking-widest text-[#2A2A2A] mb-14 hover:opacity-50 transition-opacity cursor-pointer bg-transparent border-none"
-                  onClick={() => handleLinkClick(link)}
-                >
+                <motion.button key={link}
+                  initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.08 }}
+                  className="text-3xl md:text-4xl font-playfair uppercase tracking-widest text-[#2A2A2A] py-6 hover:opacity-40 transition-opacity cursor-pointer bg-transparent border-none"
+                  onClick={() => handleLinkClick(link)}>
                   {link}
                 </motion.button>
               ))}
+              {/* redes en menú */}
+              <div className="flex gap-6 mt-12 opacity-50">
+                <a href={SOCIAL_DATA.instagram} target="_blank" rel="noopener noreferrer"><InstagramIcon size={18} /></a>
+                <a href={SOCIAL_DATA.tiktok} target="_blank" rel="noopener noreferrer"><TikTokIcon size={18} /></a>
+                <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /></a>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* ──────────── VISTAS PRINCIPALES (<MAIN>) ──────────── */}
-        {/* ── pb-[80px]: más respiro al final del contenido principal ── */}
-        <main className="px-4 md:px-12 pb-[80px] max-w-[1400px] mx-auto w-full flex flex-col items-center justify-center text-center">
+        {/* MAIN */}
+        <main className="px-4 sm:px-6 md:px-12 pb-24 max-w-[1400px] mx-auto w-full">
           <AnimatePresence mode="wait">
 
-            {/* ══ HOME ══ */}
-            {currentView === 'home' && (
-              <motion.div
-                key="home"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-full flex flex-col items-center justify-center"
-              >
-                {/* ──────────── HERO SECTION ──────────── */}
-                <section className="relative w-full aspect-[4/5] md:aspect-[21/9] rounded-[40px] md:rounded-[60px] overflow-hidden mb-48 md:mb-56 flex items-center justify-center">
-                  <img
-                    src={HERO_DATA.image}
-                    alt="Hero"
-                    className="absolute inset-0 w-full h-full object-cover rounded-[40px] md:rounded-[60px]"
-                  />
-                  <div className="absolute inset-0 bg-black/20" />
-                  <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-8 md:px-16 w-full">
-                    <h1 className="font-playfair text-white text-4xl md:text-5xl lg:text-7xl leading-[1.2] mb-6 flex flex-col items-center justify-center">
+            {/* HOME */}
+            {currentView === "home" && (
+              <motion.div key="home" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
+
+                {/* HERO */}
+                <section className="relative w-full overflow-hidden rounded-3xl md:rounded-[56px] aspect-[3/4] sm:aspect-[3/2] md:aspect-[21/9] mb-16 sm:mb-24 md:mb-44 flex items-center justify-center">
+                  <img src={HERO_DATA.image} alt="Hero" className="absolute inset-0 w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/40" />
+                  <div className="absolute inset-0 flex flex-col justify-end items-start text-left px-7 pb-10 md:px-14 md:pb-14">
+                    <h1 className="font-playfair text-white text-3xl sm:text-4xl md:text-6xl lg:text-7xl leading-[1.1] mb-4 flex flex-col">
                       <StaggeredText text={HERO_DATA.titleLine1} delay={0.1} />
                       <StaggeredText text={HERO_DATA.titleLine2} delay={0.3} />
                       <StaggeredText text={HERO_DATA.titleLine3} delay={0.5} />
                     </h1>
-                    <motion.p
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.8, duration: 0.6 }}
-                      className="text-white/90 font-inter text-sm md:text-base max-w-xs md:max-w-sm leading-relaxed font-light mx-auto text-center"
-                    >
+                    <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }}
+                      className="text-white/80 font-inter text-xs sm:text-sm max-w-[240px] sm:max-w-xs leading-relaxed font-light">
                       {HERO_DATA.subtitle}
                     </motion.p>
                   </div>
                 </section>
 
-                {/* ──────────── PRODUCT LIST ──────────── */}
-                <section className="mb-8 w-full flex flex-col items-center justify-center">
-                  <div className="flex flex-col items-center justify-center text-center mb-32 md:mb-36 max-w-4xl mx-auto gap-6">
-                    <h2 className="font-playfair text-2xl md:text-3xl text-[#2A2A2A] uppercase tracking-wide text-center">
-                      Nuestros Productos
-                    </h2>
-                    <p className="font-inter text-sm md:text-base text-[#8A8A8A] max-w-xl text-center leading-relaxed">
-                      Explora nuestra gama premium de mantequillas corporales hidratantes de Cuccio Luxury Spa. Haz clic en cualquiera para ver sus detalles.
-                    </p>
+                {/* PRODUCTOS */}
+                <section className="w-full">
+                  {/* encabezado */}
+                  <div className="flex flex-col items-center text-center mb-10 sm:mb-14 md:mb-20">
+                    <p className="font-inter text-[9px] uppercase tracking-[0.3em] text-[#9A9A90] mb-3">Colección</p>
+                    <h2 className="font-playfair text-2xl sm:text-3xl md:text-4xl text-[#2A2A2A] mb-4">Nuestros Productos</h2>
+                    <div className="w-10 h-px bg-[#C8C8C0]" />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-14 gap-y-24 w-full max-w-6xl justify-center items-start">
-                    {PRODUCTS_DATA.map((product, i) => (
-                      <ArrivalCard
-                        key={product.id}
-                        product={product}
-                        index={i}
-                        onClick={() => setSelectedProduct(product)}
-                      />
+                  {/* grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-7 md:gap-10 items-start">
+                    {PRODUCTS_DATA.map((p, i) => (
+                      <ProductCard key={p.id} product={p} index={i} onClick={() => setSelectedProduct(p)} />
                     ))}
                   </div>
                 </section>
               </motion.div>
             )}
 
-            {/* ══ ABOUT ══ */}
-            {currentView === 'about' && (
-              <motion.div
-                key="about"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.5 }}
-                className="w-full max-w-3xl mx-auto flex flex-col items-center justify-center text-center py-16"
-              >
-
-                <div className="w-full flex items-center justify-center mb-12 py-8">
-                  <img
-                    src="/images/Gemini_Generated_Image_b5gbk1b5gbk1b5gb-removebg-preview.png"
-
-                    className="w-64 md:w-80 h-auto object-contain opacity-90"
-                  />
-                </div>
-                <div className="space-y-8 font-inter text-sm md:text-base text-[#4A4A4A] leading-relaxed text-center flex flex-col items-center">
-                  <p className="max-w-2xl text-center">
-                    En <strong className="text-[#2A2A2A]">INTER SPA</strong> nos apasiona reconectar a las personas con su belleza natural a través de productos éticos, sustentables y formulados con la mayor pureza orgánica.
-                  </p>
-                  <p className="max-w-2xl text-center">
-                    Creemos firmemente en el bienestar integral. Cada uno de nuestros ingredientes es cuidadosamente seleccionado y cosechado de forma sustentable para asegurar no solo la efectividad en tu piel, sino también la preservación del medio ambiente.
-                  </p>
+            {/* ABOUT */}
+            {currentView === "about" && (
+              <motion.div key="about" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                className="w-full max-w-lg mx-auto flex flex-col items-center text-center py-14 md:py-24">
+                <img src="/images/Gemini_Generated_Image_b5gbk1b5gbk1b5gb-removebg-preview.png"
+                  alt="ISD" className="w-40 sm:w-56 md:w-72 h-auto object-contain mb-12 md:mb-16 opacity-85" />
+                <div className="w-8 h-px bg-[#C8C8C0] mb-10" />
+                <div className="space-y-6 font-inter text-sm text-[#4A4A4A] leading-loose flex flex-col items-center">
+                  <p>En <strong className="text-[#2A2A2A] font-medium">INTER SPA</strong> nos apasiona reconectar a las personas con su belleza natural a través de productos éticos, sustentables y formulados con la mayor pureza orgánica.</p>
+                  <p>Creemos firmemente en el bienestar integral. Cada uno de nuestros ingredientes es cuidadosamente seleccionado y cosechado de forma sustentable para asegurar no solo la efectividad en tu piel, sino también la preservación del medio ambiente.</p>
                 </div>
               </motion.div>
             )}
 
-            {/* ══ CONTACT ══ */}
-            {currentView === 'contact' && (
-              <motion.div
-                key="contact"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.5 }}
-                className="w-full max-w-3xl mx-auto flex flex-col items-center justify-center text-center py-16"
-              >
-                <h1 className="font-playfair text-3xl md:text-4xl text-[#2A2A2A] uppercase tracking-wide mb-8 text-center">
-                  Contacto
-                </h1>
-                <p className="font-inter text-sm md:text-base text-[#4A4A4A] mb-16 max-w-lg text-center">
-                  ¿Tienes alguna duda o te gustaría realizar un pedido personalizado? Estamos listos para asistirte a través de cualquiera de nuestros canales oficiales.
+            {/* CONTACT */}
+            {currentView === "contact" && (
+              <motion.div key="contact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+                className="w-full max-w-sm mx-auto flex flex-col items-center text-center py-14 md:py-24">
+                <p className="font-inter text-[9px] uppercase tracking-[0.3em] text-[#9A9A90] mb-3">Hablemos</p>
+                <h1 className="font-playfair text-3xl md:text-4xl text-[#2A2A2A] mb-4">Contacto</h1>
+                <div className="w-10 h-px bg-[#C8C8C0] mb-10" />
+                <p className="font-inter text-sm text-[#6A6A6A] mb-12 leading-relaxed">
+                  ¿Tienes alguna duda o quieres hacer un pedido? Escríbenos.
                 </p>
-
-                <div className="flex flex-col gap-6 w-full max-w-md mx-auto items-center">
-                  <a
-                    href={SOCIAL_DATA.whatsapp}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 px-6 rounded-full font-inter text-sm font-medium hover:opacity-90 transition-opacity shadow-sm w-full"
-                  >
-                    <MessageCircle size={20} /> Escríbenos por WhatsApp
+                <div className="flex flex-col gap-3 w-full">
+                  <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 px-6 rounded-full font-inter text-xs font-medium tracking-wide hover:opacity-90 transition-opacity w-full">
+                    <MessageCircle size={16} /> WhatsApp
                   </a>
-
-                  <a
-                    href={SOCIAL_DATA.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 bg-[#E1306C] text-white py-4 px-6 rounded-full font-inter text-sm font-medium hover:opacity-90 transition-opacity shadow-sm w-full"
-                  >
-                    <InstagramIcon size={20} /> Síguenos en Instagram
+                  <a href={SOCIAL_DATA.instagram} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 bg-[#E1306C] text-white py-4 px-6 rounded-full font-inter text-xs font-medium tracking-wide hover:opacity-90 transition-opacity w-full">
+                    <InstagramIcon size={16} /> Instagram
                   </a>
-
-                  <a
-                    href={SOCIAL_DATA.tiktok}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-3 bg-black text-white py-4 px-6 rounded-full font-inter text-sm font-medium hover:opacity-90 transition-opacity shadow-sm w-full"
-                  >
-                    <TikTokIcon size={20} /> Síguenos en TikTok
+                  <a href={SOCIAL_DATA.tiktok} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 bg-[#2A2A2A] text-white py-4 px-6 rounded-full font-inter text-xs font-medium tracking-wide hover:opacity-90 transition-opacity w-full">
+                    <TikTokIcon size={16} /> TikTok
                   </a>
                 </div>
               </motion.div>
@@ -414,117 +320,42 @@ export default function App() {
         </main>
       </div>
 
-      {/* ──────────── FOOTER ──────────── */}
-      <footer className="w-full px-6 md:px-12 py-16 bg-[#F4F3ED] border-t border-[#E5E5E5] flex flex-col items-center justify-center text-center gap-10 mt-16">
-        <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+      {/* FOOTER */}
+      <footer className="w-full px-6 md:px-12 py-10 md:py-14 border-t border-[#E8E7E0] flex flex-col items-center gap-6 md:gap-8">
+        <div className="flex items-center gap-6 md:gap-10">
           {NAV_DATA.links.map(link => (
-            <button
-              key={link}
-              onClick={() => handleLinkClick(link)}
-              className="font-inter text-xs md:text-sm uppercase tracking-widest text-[#2A2A2A] hover:opacity-60 transition-opacity bg-transparent border-none cursor-pointer"
-            >
+            <button key={link} onClick={() => handleLinkClick(link)}
+              className="font-inter text-[9px] md:text-[10px] uppercase tracking-[0.25em] text-[#6A6A6A] hover:text-[#2A2A2A] transition-colors bg-transparent border-none cursor-pointer">
               {link}
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-8 justify-center">
-          <a
-            href={SOCIAL_DATA.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-[#2A2A2A] text-[#F4F3ED] flex items-center justify-center hover:opacity-80 transition-opacity"
-          >
-            <InstagramIcon size={16} />
-          </a>
-          <a
-            href={SOCIAL_DATA.tiktok}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-[#2A2A2A] text-[#F4F3ED] flex items-center justify-center hover:opacity-80 transition-opacity"
-          >
-            <TikTokIcon size={16} />
-          </a>
-          <a
-            href={SOCIAL_DATA.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 rounded-full bg-[#2A2A2A] text-[#F4F3ED] flex items-center justify-center hover:opacity-80 transition-opacity"
-          >
-            <MessageCircle size={16} />
-          </a>
+        <div className="flex items-center gap-5">
+          {[
+            { href: SOCIAL_DATA.instagram, Icon: InstagramIcon },
+            { href: SOCIAL_DATA.tiktok, Icon: TikTokIcon },
+            { href: SOCIAL_DATA.whatsapp, Icon: MessageCircle },
+          ].map(({ href, Icon }, i) => (
+            <a key={i} href={href} target="_blank" rel="noopener noreferrer"
+              className="w-9 h-9 rounded-full border border-[#D8D6CE] text-[#4A4A4A] flex items-center justify-center hover:border-[#2A2A2A] hover:text-[#2A2A2A] transition-colors">
+              <Icon size={14} />
+            </a>
+          ))}
         </div>
+        <p className="font-inter text-[9px] text-[#B0AFA8] tracking-widest uppercase">© 2025 Inter Spa Distribution</p>
       </footer>
 
-      {/* ──────────── BOTÓN FLOTANTE WHATSAPP ──────────── */}
-      <a
-        href={SOCIAL_DATA.whatsapp}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="whatsapp-pulse fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[100] w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
-        aria-label="Contactar por WhatsApp"
-      >
-        <MessageCircle size={26} strokeWidth={2} color="white" />
+      {/* WHATSAPP FLOTANTE */}
+      <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
+        className="whatsapp-pulse fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[100] w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:-translate-y-1 transition-transform duration-300"
+        aria-label="WhatsApp">
+        <MessageCircle size={22} strokeWidth={2} color="white" />
       </a>
 
-      {/* ──────────── PRODUCT DETAIL MODAL ──────────── */}
+      {/* MODAL */}
       <AnimatePresence>
         {selectedProduct && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[120] bg-black/40 backdrop-blur-sm flex items-center justify-center p-4"
-            onClick={() => setSelectedProduct(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.95, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.95, y: 20 }}
-              className="bg-[#F4F3ED] rounded-[40px] max-w-lg w-full p-10 shadow-2xl relative flex flex-col items-center text-center overflow-y-auto max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="absolute top-6 right-6 text-[#2A2A2A] hover:opacity-60 transition-opacity p-2 cursor-pointer"
-                onClick={() => setSelectedProduct(null)}
-              >
-                <X size={20} />
-              </button>
-
-              <div
-                className={`w-full h-auto ${selectedProduct.bgColor} rounded-[32px] p-12 py-16 flex items-center justify-center mb-10 mix-blend-multiply overflow-hidden`}
-              >
-                <img
-                  src={selectedProduct.image}
-                  alt={selectedProduct.name}
-                  className="w-full h-auto object-contain"
-                />
-              </div>
-
-              <h3 className="font-playfair text-lg md:text-xl text-[#2A2A2A] uppercase mb-8 tracking-wide px-4 leading-snug">
-                {selectedProduct.name}
-              </h3>
-
-              <div className="w-full border-t border-[#E5E5E5] pt-10 mb-10 text-center space-y-10">
-                <div>
-                  <h4 className="font-inter text-xs uppercase tracking-widest text-[#8A8A8A] mb-4">Descripción</h4>
-                  <p className="font-inter text-sm text-[#4A4A4A] leading-loose px-4">{selectedProduct.description}</p>
-                </div>
-                <div>
-                  <h4 className="font-inter text-xs uppercase tracking-widest text-[#8A8A8A] mb-4">Ingredientes Destacados</h4>
-                  <p className="font-inter text-sm text-[#6A6A6A] leading-loose italic px-4">{selectedProduct.ingredients}</p>
-                </div>
-              </div>
-
-              <a
-                href={SOCIAL_DATA.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-4 bg-[#2A2A2A] text-[#F4F3ED] rounded-full font-inter text-xs md:text-sm uppercase tracking-widest hover:opacity-90 transition-opacity text-center flex items-center justify-center gap-2"
-              >
-                <MessageCircle size={18} /> Consultar por WhatsApp
-              </a>
-            </motion.div>
-          </motion.div>
+          <ProductModal product={selectedProduct} onClose={closeModal} />
         )}
       </AnimatePresence>
     </div>
