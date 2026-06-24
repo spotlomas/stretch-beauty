@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Menu, X, MessageCircle, ChevronRight } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 
 const NAV_DATA = {
   brand: "INTER",
@@ -64,6 +64,7 @@ function StaggeredText({ text, delay = 0 }: { text: string; delay?: number }) {
   );
 }
 
+/* ─── COMPONENTE PRODUCTO CARD (CORREGIDO CON EL NUEVO DISEÑO) ─── */
 function ProductCard({ product, index, onClick }: { product: Product; index: number; onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
@@ -74,31 +75,36 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onClick={onClick}
-      className="flex flex-col items-center cursor-pointer group"
+      className="flex flex-col items-center cursor-pointer group bg-transparent"
     >
-      {/* imagen con borde redondeado */}
+      {/* Contenedor del producto con borde y fondo */}
       <div
-        className="w-full rounded-3xl flex items-center justify-center overflow-hidden mb-4 transition-shadow duration-300 hover:shadow-lg"
-        style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "clamp(16px, 5vw, 40px)", aspectRatio: "3/4" }}
+        className="w-full rounded-[32px] border border-[#D8D6CE] flex flex-col items-center overflow-hidden transition-all duration-300 hover:shadow-md hover:border-[#BDBDB0] p-4"
+        style={{ backgroundColor: "#F9F8F4" }}
       >
-        <img src={product.image} alt={product.name}
-          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+        {/* Contenedor de la imagen con fondo coloreado */}
+        <div className="w-full aspect-square flex items-center justify-center overflow-hidden mb-3"
+          style={{ backgroundColor: product.bgColor, borderRadius: "24px", mixBlendMode: "multiply" }}>
+          <img src={product.image} alt={product.name}
+            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" />
+        </div>
+
+        {/* Etiqueta genérica */}
+        <p className="font-playfair text-[11px] uppercase tracking-widest text-[#9A9A90] mb-1">Mantequilla Hidratante</p>
+
+        {/* Nombre del producto */}
+        <p className="font-playfair font-medium text-sm text-[#2A2A2A] text-center mb-3 italic">{product.name}</p>
+
+        {/* Botón "Ver Detalles" */}
+        <button className="text-[10px] uppercase tracking-[0.2em] border border-[#C8C8C0] px-4 py-1.5 rounded-full text-[#6A6A6A] hover:bg-[#2A2A2A] hover:text-white transition-colors">
+          Ver Detalles
+        </button>
       </div>
-
-      {/* nombre */}
-      <p className="font-inter font-medium uppercase tracking-wide text-[#2A2A2A] text-center leading-tight text-[9px] sm:text-xs px-1 line-clamp-2 mb-2">
-        {product.name}
-      </p>
-
-      {/* Ver Detalles */}
-      <button className="flex items-center gap-1 text-[9px] sm:text-[10px] uppercase tracking-widest text-[#2A2A2A] font-semibold hover:opacity-60 transition-opacity">
-        Ver Detalles <ChevronRight size={12} strokeWidth={3} />
-      </button>
     </motion.div>
   );
 }
 
-/* ─── MODAL ─── */
+/* ─── MODAL (CORREGIDO CON EL NUEVO DISEÑO) ─── */
 function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
   return (
     <motion.div
@@ -106,75 +112,53 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.25 }}
-      className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center"
-      style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)" }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)" }}
     >
-      {/* clic en fondo cierra */}
+      {/* Clic en fondo cierra */}
       <div className="absolute inset-0" onClick={onClose} />
 
       <motion.div
         key="sheet"
-        initial={{ y: "100%" }}
-        animate={{ y: 0 }}
-        exit={{ y: "100%" }}
-        transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        className="relative z-10 w-full sm:max-w-lg mx-auto bg-[#F4F3ED] rounded-t-[40px] sm:rounded-[32px] overflow-y-auto"
-        style={{ maxHeight: "95vh" }}
-        onClick={(e) => e.stopPropagation()}
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="relative z-10 w-full max-w-sm bg-[#F4F3ED] rounded-[40px] p-8 flex flex-col items-center text-center shadow-2xl"
       >
-        {/* botón X - absoluto */}
-        <button
-          onClick={onClose}
-          className="absolute top-6 right-6 z-20 w-10 h-10 flex items-center justify-center rounded-full bg-white/60 hover:bg-white transition-colors cursor-pointer"
-          aria-label="Cerrar"
-        >
-          <X size={20} strokeWidth={2} color="#2A2A2A" />
+        {/* Botón X de cierre */}
+        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-[#E5E3DB]">
+          <X size={20} />
         </button>
 
-        <div className="px-6 sm:px-10 pt-8 pb-10 flex flex-col items-center text-center">
-
-          {/* imagen grande - prominente */}
-          <div
-            className="w-full max-w-sm rounded-3xl flex items-center justify-center mb-10 overflow-hidden shadow-md"
-            style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply", padding: "40px 24px", aspectRatio: "3/4" }}>
-            <img src={product.image} alt={product.name}
-              className="w-full h-full object-contain" />
-          </div>
-
-          {/* nombre - "Mantequilla Hidratante" */}
-          <h3 className="font-playfair text-lg sm:text-xl text-[#2A2A2A] uppercase tracking-widest mb-2 leading-snug">
-            Mantequilla Hidratante
-          </h3>
-
-          {/* nombre del producto en itálica */}
-          <p className="font-playfair text-xl sm:text-2xl text-[#2A2A2A] uppercase tracking-wide mb-8 leading-snug font-normal italic">
-            {product.name}
-          </p>
-
-          {/* descripción */}
-          <div className="w-full mb-8 text-left">
-            <p className="font-inter text-[11px] uppercase tracking-widest text-[#9A9A90] mb-3 font-semibold">Descripción</p>
-            <p className="font-inter text-sm text-[#2A2A2A] leading-relaxed">{product.description}</p>
-          </div>
-
-          {/* ingredientes */}
-          <div className="w-full mb-10 text-left">
-            <p className="font-inter text-[11px] uppercase tracking-widest text-[#9A9A90] mb-3 font-semibold">Ingredientes Destacados</p>
-            <p className="font-inter text-sm text-[#2A2A2A] leading-relaxed italic">{product.ingredients}</p>
-          </div>
-
-          {/* CTA - botón WhatsApp */}
-          <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
-            className="w-full py-3.5 bg-[#2A2A2A] text-white rounded-full font-inter text-xs uppercase tracking-[0.2em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2.5 font-semibold">
-            <MessageCircle size={18} /> Consultar por WhatsApp
-          </a>
-
-          {/* Ver Detalles Completos */}
-          <button onClick={() => { }} className="mt-6 flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#2A2A2A] font-semibold hover:opacity-60 transition-opacity">
-            Ver Detalles Completos <ChevronRight size={14} strokeWidth={3} />
-          </button>
+        {/* Contenedor de la imagen */}
+        <div className="w-full aspect-square rounded-[32px] flex items-center justify-center mb-6"
+          style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply" }}>
+          <img src={product.image} alt={product.name} className="w-full h-full object-contain p-6" />
         </div>
+
+        {/* Título genérico */}
+        <h3 className="font-playfair text-xl text-[#2A2A2A] uppercase tracking-wide mb-1">Mantequilla Hidratante</h3>
+
+        {/* Nombre del producto en cursiva */}
+        <p className="font-playfair text-2xl text-[#2A2A2A] italic mb-6">{product.name}</p>
+
+        {/* Sección de detalles alineada a la izquierda */}
+        <div className="w-full text-left space-y-4 mb-8">
+          <div>
+            <p className="text-[10px] uppercase tracking-widest text-[#9A9A90] font-bold mb-1">Descripción</p>
+            <p className="text-sm text-[#4A4A4A] leading-relaxed">{product.description}</p>
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-widest text-[#9A9A90] font-bold mb-1">Ingredientes Destacados</p>
+            <p className="text-sm text-[#4A4A4A] leading-relaxed italic">{product.ingredients}</p>
+          </div>
+        </div>
+
+        {/* Botón WhatsApp */}
+        <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
+          className="w-full py-4 bg-[#2A2A2A] text-white rounded-full font-inter text-xs uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 hover:opacity-85 transition-opacity">
+          <MessageCircle size={16} /> Consultar por WhatsApp
+        </a>
       </motion.div>
     </motion.div>
   );
@@ -272,7 +256,7 @@ export default function App() {
                   </div>
 
                   {/* grid - 2 columnas en móvil, 2 en tablet, 4 en desktop */}
-                  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-start">
+                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-start">
                     {PRODUCTS_DATA.map((p, i) => (
                       <ProductCard key={p.id} product={p} index={i} onClick={() => setSelectedProduct(p)} />
                     ))}
@@ -358,7 +342,7 @@ export default function App() {
         <MessageCircle size={22} strokeWidth={2} color="white" />
       </a>
 
-      {/* MODAL */}
+      {/* MODAL (LLAMADA CORREGIDA) */}
       <AnimatePresence>
         {selectedProduct && (
           <ProductModal product={selectedProduct} onClose={closeModal} />
