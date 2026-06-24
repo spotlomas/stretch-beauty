@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+/* ══════════════════════════════════════════════════════════════════
+   STRETCH — Sistema de Diseño Global
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Tipografías ── */
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Reset Global ── */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F4F3ED;
+  color: #2A2A2A;
+  overflow-x: hidden;
+}
+
+/* ── Animación de zoom en imágenes de categoría ── */
+.image-zoom-hover img {
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.image-zoom-hover:hover img {
+  transform: scale(1.08);
+}
+
+/* ── Botón flotante de WhatsApp con pulso ── */
+.whatsapp-pulse {
+  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+/* ── Scrollbar personalizado ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4F3ED;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D1D1D1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A3A3A3;
+}
+
+/* ── Utilidades adicionales ── */
+.mix-blend-multiply {
+  mix-blend-mode: multiply;
+}
