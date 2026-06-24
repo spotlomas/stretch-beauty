@@ -64,7 +64,7 @@ function StaggeredText({ text, delay = 0 }: { text: string; delay?: number }) {
   );
 }
 
-/* ─── COMPONENTE PRODUCTO CARD (CORREGIDO CON EL NUEVO DISEÑO) ─── */
+/* ─── PRODUCTO CARD (MODIFICADO) ─── */
 function ProductCard({ product, index, onClick }: { product: Product; index: number; onClick: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-20px" });
@@ -75,27 +75,21 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.4, delay: index * 0.05 }}
       onClick={onClick}
-      className="flex flex-col items-center cursor-pointer group bg-transparent"
+      className="flex flex-col items-center cursor-pointer group rounded-3xl"
+      style={{ backgroundColor: product.bgColor }} // Fondo del recuadro
     >
-      {/* Contenedor del producto con borde y fondo */}
-      <div
-        className="w-full rounded-[32px] border border-[#D8D6CE] flex flex-col items-center overflow-hidden transition-all duration-300 hover:shadow-md hover:border-[#BDBDB0] p-4"
-        style={{ backgroundColor: "#F9F8F4" }}
-      >
-        {/* Contenedor de la imagen con fondo coloreado */}
-        <div className="w-full aspect-square flex items-center justify-center overflow-hidden mb-3"
-          style={{ backgroundColor: product.bgColor, borderRadius: "24px", mixBlendMode: "multiply" }}>
-          <img src={product.image} alt={product.name}
-            className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" />
-        </div>
+      {/* Contenedor de la imagen, máxima prioridad y ocupa todo el espacio */}
+      <div className="w-full flex-grow flex items-center justify-center p-4">
+        <img src={product.image} alt={product.name}
+          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+      </div>
 
-        {/* Etiqueta genérica */}
-        <p className="font-playfair text-[11px] uppercase tracking-widest text-[#9A9A90] mb-1">Mantequilla Hidratante</p>
+      {/* Textos y botón centrados abajo */}
+      <div className="w-full p-4 flex flex-col items-center text-center">
+        <p className="font-playfair text-[10px] uppercase tracking-widest text-[#9A9A90] mb-1">Mantequilla Hidratante</p>
+        <p className="font-playfair font-medium text-sm text-[#2A2A2A] leading-tight mb-3 italic">{product.name}</p>
 
-        {/* Nombre del producto */}
-        <p className="font-playfair font-medium text-sm text-[#2A2A2A] text-center mb-3 italic">{product.name}</p>
-
-        {/* Botón "Ver Detalles" */}
+        {/* Botón "Ver Detalles" (Estilizado) */}
         <button className="text-[10px] uppercase tracking-[0.2em] border border-[#C8C8C0] px-4 py-1.5 rounded-full text-[#6A6A6A] hover:bg-[#2A2A2A] hover:text-white transition-colors">
           Ver Detalles
         </button>
@@ -104,63 +98,65 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
   );
 }
 
-/* ─── MODAL (CORREGIDO CON EL NUEVO DISEÑO) ─── */
+/* ─── MODAL (CORREGIDO PARA PC Y CIERRE) ─── */
 function ProductModal({ product, onClose }: { product: Product; onClose: () => void }) {
+  // Manejador de cierre (fondo o botón)
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
-    <motion.div
-      key="backdrop"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
-      style={{ backgroundColor: "rgba(0,0,0,0.4)", backdropFilter: "blur(8px)" }}
-    >
-      {/* Clic en fondo cierra */}
-      <div className="absolute inset-0" onClick={onClose} />
-
+    <AnimatePresence>
       <motion.div
-        key="sheet"
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        className="relative z-10 w-full max-w-sm bg-[#F4F3ED] rounded-[40px] p-8 flex flex-col items-center text-center shadow-2xl"
+        key="backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+        onClick={handleClose} // Cierra al hacer clic en el fondo
       >
-        {/* Botón X de cierre */}
-        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-full hover:bg-[#E5E3DB]">
-          <X size={20} />
-        </button>
+        <motion.div
+          key="modal"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.9, opacity: 0 }}
+          className="relative z-10 w-full max-w-sm sm:max-w-md bg-[#F4F3ED] rounded-[32px] p-8 sm:p-10 flex flex-col items-center text-center shadow-2xl overflow-y-auto max-h-[90vh]"
+          onClick={(e) => e.stopPropagation()} // Evita cerrar al hacer clic dentro
+        >
+          {/* Botón X de cierre (Funcional y estilizado) */}
+          <button
+            onClick={handleClose}
+            className="absolute top-6 right-6 p-2 rounded-full hover:bg-[#E5E3DB] transition-colors"
+          >
+            <X size={24} />
+          </button>
 
-        {/* Contenedor de la imagen */}
-        <div className="w-full aspect-square rounded-[32px] flex items-center justify-center mb-6"
-          style={{ backgroundColor: product.bgColor, mixBlendMode: "multiply" }}>
-          <img src={product.image} alt={product.name} className="w-full h-full object-contain p-6" />
-        </div>
-
-        {/* Título genérico */}
-        <h3 className="font-playfair text-xl text-[#2A2A2A] uppercase tracking-wide mb-1">Mantequilla Hidratante</h3>
-
-        {/* Nombre del producto en cursiva */}
-        <p className="font-playfair text-2xl text-[#2A2A2A] italic mb-6">{product.name}</p>
-
-        {/* Sección de detalles alineada a la izquierda */}
-        <div className="w-full text-left space-y-4 mb-8">
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#9A9A90] font-bold mb-1">Descripción</p>
-            <p className="text-sm text-[#4A4A4A] leading-relaxed">{product.description}</p>
+          {/* Imagen de producto (Máxima prioridad y sin fondo visible) */}
+          <div className="w-full h-auto mb-6 flex justify-center">
+            <img src={product.image} alt={product.name} className="w-full max-h-[300px] object-contain" />
           </div>
-          <div>
-            <p className="text-[10px] uppercase tracking-widest text-[#9A9A90] font-bold mb-1">Ingredientes Destacados</p>
-            <p className="text-sm text-[#4A4A4A] leading-relaxed italic">{product.ingredients}</p>
-          </div>
-        </div>
 
-        {/* Botón WhatsApp */}
-        <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
-          className="w-full py-4 bg-[#2A2A2A] text-white rounded-full font-inter text-xs uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 hover:opacity-85 transition-opacity">
-          <MessageCircle size={16} /> Consultar por WhatsApp
-        </a>
+          <h3 className="font-playfair text-lg text-[#2A2A2A] uppercase tracking-wide mb-1 leading-snug">Mantequilla Hidratante</h3>
+          <p className="font-playfair text-2xl text-[#2A2A2A] italic mb-6 leading-tight">{product.name}</p>
+
+          <div className="w-full text-left space-y-4 mb-8">
+            <div>
+              <p className="text-[11px] uppercase tracking-widest text-[#9A9A90] font-bold mb-1">Descripción</p>
+              <p className="text-sm text-[#4A4A4A] leading-relaxed">{product.description}</p>
+            </div>
+            <div>
+              <p className="text-[11px] uppercase tracking-widest text-[#9A9A90] font-bold mb-1">Ingredientes Destacados</p>
+              <p className="text-sm text-[#4A4A4A] leading-relaxed italic">{product.ingredients}</p>
+            </div>
+          </div>
+
+          <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer"
+            className="w-full py-4 bg-[#2A2A2A] text-white rounded-full font-inter text-xs uppercase tracking-[0.2em] font-bold flex items-center justify-center gap-2 hover:opacity-85 transition-opacity">
+            <MessageCircle size={16} /> Consultar por WhatsApp
+          </a>
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </AnimatePresence>
   );
 }
 
@@ -256,7 +252,7 @@ export default function App() {
                   </div>
 
                   {/* grid - 2 columnas en móvil, 2 en tablet, 4 en desktop */}
-                  <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-start">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-start">
                     {PRODUCTS_DATA.map((p, i) => (
                       <ProductCard key={p.id} product={p} index={i} onClick={() => setSelectedProduct(p)} />
                     ))}
@@ -265,7 +261,7 @@ export default function App() {
               </motion.div>
             )}
 
-            {/* ABOUT */}
+            {/* ABOUT (Sin cambios solicitados) */}
             {currentView === "about" && (
               <motion.div key="about" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                 className="w-full max-w-lg mx-auto flex flex-col items-center text-center py-14 md:py-24">
@@ -279,7 +275,7 @@ export default function App() {
               </motion.div>
             )}
 
-            {/* CONTACT */}
+            {/* CONTACT (Sin cambios solicitados) */}
             {currentView === "contact" && (
               <motion.div key="contact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
                 className="w-full max-w-sm mx-auto flex flex-col items-center text-center py-14 md:py-24">
@@ -342,12 +338,10 @@ export default function App() {
         <MessageCircle size={22} strokeWidth={2} color="white" />
       </a>
 
-      {/* MODAL (LLAMADA CORREGIDA) */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <ProductModal product={selectedProduct} onClose={closeModal} />
-        )}
-      </AnimatePresence>
+      {/* MODAL */}
+      {selectedProduct && (
+        <ProductModal product={selectedProduct} onClose={closeModal} />
+      )}
     </div>
   );
 }
