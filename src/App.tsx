@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle, ChevronRight } from "lucide-react";
 
 const NAV_DATA = {
   brand: "INTER",
@@ -84,10 +84,16 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
         <img src={product.image} alt={product.name}
           className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
       </div>
+
       {/* nombre */}
-      <p className="font-inter font-medium uppercase tracking-wide text-[#2A2A2A] text-center leading-tight text-[9px] sm:text-xs px-1 line-clamp-2">
+      <p className="font-inter font-medium uppercase tracking-wide text-[#2A2A2A] text-center leading-tight text-[9px] sm:text-xs px-1 line-clamp-2 mb-2">
         {product.name}
       </p>
+
+      {/* Ver Detalles */}
+      <button className="flex items-center gap-1 text-[9px] sm:text-[10px] uppercase tracking-widest text-[#2A2A2A] font-semibold hover:opacity-60 transition-opacity">
+        Ver Detalles <ChevronRight size={12} strokeWidth={3} />
+      </button>
     </motion.div>
   );
 }
@@ -163,6 +169,11 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             className="w-full py-3.5 bg-[#2A2A2A] text-white rounded-full font-inter text-xs uppercase tracking-[0.2em] hover:opacity-85 transition-opacity flex items-center justify-center gap-2.5 font-semibold">
             <MessageCircle size={18} /> Consultar por WhatsApp
           </a>
+
+          {/* Ver Detalles Completos */}
+          <button onClick={() => { }} className="mt-6 flex items-center gap-2 text-[11px] uppercase tracking-widest text-[#2A2A2A] font-semibold hover:opacity-60 transition-opacity">
+            Ver Detalles Completos <ChevronRight size={14} strokeWidth={3} />
+          </button>
         </div>
       </motion.div>
     </motion.div>
