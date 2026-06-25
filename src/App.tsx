@@ -56,100 +56,67 @@ const PRODUCTS_DATA = [
   { id: 6, name: "White Limetta & Aloe", description: "Una experiencia refrescante e hidrorreguladora ideal para mantener la piel suave, fresca y calmada todo el día.", ingredients: "Extracto de limeta blanca, gel purificado de aloe vera, factores de hidratación natural.", image: "/images/white_limetta_aloe.png", bgColor: "#DDE8D8", accent: "#3A7A6A", category: "Calmante" },
   { id: 7, name: "Coconut & White Ginger", description: "Fórmula ultra-hidratante que alivia las zonas más ásperas del cuerpo, aportando tersura y un escudo emoliente.", ingredients: "Aceite de coco fraccionado, extracto de jengibre blanco, aceites acondicionadores ligeros.", image: "/images/coconut_white_ginger.png", bgColor: "#EDE6DA", accent: "#8B7355", category: "Hidratante" },
 
-  // --- NUEVOS PRODUCTOS INTEGRADOS ---
-  // --- NUEVOS PRODUCTOS INTEGRADOS ---
-  { id: 8, name: "Cuccio - Lavender & Chamomile", description: "Mantequilla hidratante no grasa, ideal para relajar y calmar la piel.", ingredients: "Extracto de lavanda, manzanilla.", image: "/images/cuccio_lavender.png", bgColor: "#E8EBD8", accent: "#7D8B5E", category: "Calmante" },
-  { id: 9, name: "Cuccio - Milk & Honey", description: "Fórmula hidratante intensiva que retiene la humedad para revelar un brillo natural y saludable.", ingredients: "Miel, leche, extractos botánicos.", image: "/images/cuccio_milk_honey.png", bgColor: "#EDE6DA", accent: "#C9A96E", category: "Hidratante" },
-  { id: 10, name: "Cuccio - Pomegranate & Fig", description: "Mantequilla rica en antioxidantes con efecto anti-edad y revitalizante para la piel del cuerpo.", ingredients: "Granada, higo.", image: "/images/cuccio_pomegranate.png", bgColor: "#E8EBD8", accent: "#7A5E8B", category: "Rejuvenecedor" },
-  { id: 11, name: "Cuccio - White Truffle Souffle", description: "Body butter souffle de lujo con textura ultra ligera para una hidratación profunda y rica.", ingredients: "Trufa blanca, antioxidantes naturales.", image: "/images/cuccio_white_truffle.png", bgColor: "#F5F5F5", accent: "#8A8276", category: "Hidratante" },
-  { id: 12, name: "Cuccio - Vanilla Bean & Sugar", description: "Mantequilla corporal con un aroma reconfortante que acondiciona y suaviza intensamente la piel.", ingredients: "Vainilla, caña de azúcar.", image: "/images/cuccio_vanilla_bean.png", bgColor: "#EDE6DA", accent: "#9B7B4A", category: "Hidratante" },
-  { id: 13, name: "Cuccio - Sweet Almond", description: "Fórmula hidratante rica en nutrientes para restaurar y mantener la suavidad natural de la piel.", ingredients: "Almendra dulce, vitamina E.", image: "/images/cuccio_sweet_almond.png", bgColor: "#F3EFE6", accent: "#A67B5B", category: "Hidratante" },
-  { id: 14, name: "Cuccio - Citrus & Wild Berry", description: "Mantequilla revitalizante con un refrescante toque cítrico y de frutos del bosque para despertar la piel.", ingredients: "Cítricos, bayas silvestres.", image: "/images/cuccio_citrus_berry.png", bgColor: "#DDE8D8", accent: "#4A7A5E", category: "Revitalizante" },
-  { id: 15, name: "Cuccio - Whipped Hemp", description: "Mantequilla revitalizante batida para una absorción superior y nutrición profunda.", ingredients: "Aceite de semilla de cáñamo, Cupuaçu, Chía.", image: "/images/cuccio_whipped_hemp.png", bgColor: "#E5ECD9", accent: "#5C7844", category: "Revitalizante" },
-
-  // --- NUEVOS PRODUCTOS (IMÁGENES GENERADAS) ---
+  // ==========================================
+  // --- LÍNEA CUCCIO (MANTEQUILLAS, EXFOLIANTES Y KITS) ---
+  // ==========================================
   {
-    id: 16,
-    name: "Botanical Nectar Oil",
-    description: "Aceite corporal ligero infundido con extractos puros para una piel luminosa y profundamente nutrida.",
-    ingredients: "Aceite de jojoba orgánico, extractos florales, vitamina E.",
-    image: "/images/Gemini_Generated_Image_5ps1e15ps1e15ps1.png",
-    bgColor: "#F5F0E6",
-    accent: "#D4AF37",
-    category: "Hidratante"
+    id: 8, name: "Cuccio - Butter Essentials Milk & Honey",
+    description: "Kit de lujo que combina exfoliación suave e hidratación intensiva para una piel radiante.", ingredients: "Miel, leche, extractos botánicos exfoliantes.",
+    image: "/images/Gemini_Generated_Image_5ps1e15ps1e15ps1.png", bgColor: "#F5F0E6", accent: "#C9A96E", category: "Hidratante"
+  },
+  { id: 9, name: "Cuccio - Citrus & Wild Berry", description: "Mantequilla revitalizante con un refrescante toque cítrico y de frutos del bosque para despertar la piel.", ingredients: "Cítricos, bayas silvestres.", image: "/images/cuccio_citrus_berry.png", bgColor: "#DDE8D8", accent: "#4A7A5E", category: "Revitalizante" },
+  {
+    id: 10, name: "Cuccio - Daily Skin Polisher Milk & Honey",
+    description: "Exfoliante diario de uso suave que purifica y prepara la piel, revelando un brillo natural gracias a la miel y la leche.", ingredients: "Miel, leche, micro-partículas exfoliantes.",
+    image: "/images/Gemini_Generated_Image_but25rbut25rbut2.png", bgColor: "#EDE6DA", accent: "#C9A96E", category: "Revitalizante"
   },
   {
-    id: 17,
-    name: "Sea Kelp & Salt Exfoliant",
-    description: "Exfoliante renovador con sales finas que purifica y suaviza la textura de la piel, preparándola para la hidratación.",
-    ingredients: "Sal marina fina, extracto de algas, aceites esenciales puros.",
-    image: "/images/Gemini_Generated_Image_7kkepa7kkepa7kke.png",
-    bgColor: "#E0EAE5",
-    accent: "#5C8A79",
-    category: "Revitalizante"
+    id: 11, name: "Cuccio - Daily Skin Polisher Pomegranate & Fig (32oz)",
+    description: "Exfoliante diario en formato profesional. Elimina células muertas suavemente gracias a sus potentes antioxidantes botánicos.", ingredients: "Extracto de granada, higo, partículas pulidoras suaves.",
+    image: "/images/Gemini_Generated_Image_ofpynhofpynhofpy.png", bgColor: "#E8D8E0", accent: "#7A2E4B", category: "Revitalizante"
   },
   {
-    id: 18,
-    name: "Green Tea & Lotus Mask",
-    description: "Mascarilla corporal antioxidante que purifica, calma profundamente y restaura el equilibrio natural.",
-    ingredients: "Extracto de té verde, flor de loto, arcilla blanca purificada.",
-    image: "/images/Gemini_Generated_Image_but25rbut25rbut2.png",
-    bgColor: "#E5ECD9",
-    accent: "#6B8E23",
-    category: "Calmante"
+    id: 12, name: "Cuccio - Daily Skin Polisher Pomegranate & Fig (8oz)",
+    description: "Exfoliante suave de uso diario rico en antioxidantes que renueva la superficie de la piel protegiéndola del estrés ambiental.", ingredients: "Granada, higo.",
+    image: "/images/Gemini_Generated_Image_2s1ncw2s1ncw2s1n.png", bgColor: "#E8D8E0", accent: "#7A5E8B", category: "Revitalizante"
   },
   {
-    id: 19,
-    name: "Rose Quartz Elixir",
-    description: "Emulsión sedosa con sutiles notas florales diseñada para devolver la elasticidad y luminosidad juvenil.",
-    ingredients: "Agua de rosas destilada, escualano vegetal, péptidos.",
-    image: "/images/Gemini_Generated_Image_2pgobg2pgobg2pgo.png",
-    bgColor: "#F9ECEC",
-    accent: "#DDA0DD",
-    category: "Rejuvenecedor"
+    id: 13, name: "Cuccio - Daily Skin Polisher White Limetta & Aloe",
+    description: "Limpiador exfoliante de uso diario que refresca intensamente y calma la piel mediante el poder del aloe vera.", ingredients: "Limeta blanca, aloe vera purificado.",
+    image: "/images/Gemini_Generated_Image_7kkepa7kkepa7kke.png", bgColor: "#E0EAE5", accent: "#5C8A79", category: "Calmante"
   },
   {
-    id: 20,
-    name: "Charcoal Detox Polish",
-    description: "Tratamiento desintoxicante de alto rendimiento que limpia los poros y renueva la epidermis de manera suave.",
-    ingredients: "Carbón activado, extractos botánicos clarificantes.",
-    image: "/images/Gemini_Generated_Image_rv02x6rv02x6rv02.png",
-    bgColor: "#E8E8E8",
-    accent: "#4A4A4A",
-    category: "Revitalizante"
+    id: 14, name: "Cuccio - Hydration Essentials Milk & Honey",
+    description: "Dúo esencial de hidratación: aceite revitalizante para cutículas y mantequilla corporal para un cuidado profundo y prolongado.", ingredients: "Miel, leche, aceites botánicos puros.",
+    image: "/images/Gemini_Generated_Image_gjgmf3gjgmf3gjgm.png", bgColor: "#F5F0E6", accent: "#D4AF37", category: "Hidratante"
   },
   {
-    id: 21,
-    name: "Wild Orchid Butter",
-    description: "Mantequilla rica y exótica que proporciona hidratación profunda con un aroma floral cautivador y elegante.",
-    ingredients: "Extracto de orquídea silvestre, manteca de karité prensada en frío.",
-    image: "/images/Gemini_Generated_Image_2s1ncw2s1ncw2s1n.png",
-    bgColor: "#F0E6F5",
-    accent: "#8A2BE2",
-    category: "Hidratante"
+    id: 15, name: "Cuccio - Hydration Essentials Pomegranate & Fig",
+    description: "Set rejuvenecedor que incluye aceite nutritivo para cutículas y mantequilla hidratante no grasa rica en antioxidantes.", ingredients: "Granada, higo, aceites de rápida absorción.",
+    image: "/images/Gemini_Generated_Image_gw0a0ogw0a0ogw0a.png", bgColor: "#F5E6EC", accent: "#8A2B46", category: "Rejuvenecedor"
   },
   {
-    id: 22,
-    name: "Citrus Blossom Gel",
-    description: "Gel refrescante de rápida absorción ideal para energizar, tonificar y despertar los sentidos por la mañana.",
-    ingredients: "Extracto de flor de naranjo, vitamina C estabilizada, aloe vera.",
-    image: "/images/Gemini_Generated_Image_2utjwp2utjwp2utj.png",
-    bgColor: "#FFF5E6",
-    accent: "#FF8C00",
-    category: "Revitalizante"
+    id: 16, name: "Cuccio - Hydration Essentials Vanilla Bean & Sugar",
+    description: "Tratamiento completo ultra reconfortante con aceite de cutículas y mantequilla para sellar la humedad con un aroma dulce.", ingredients: "Vainilla, caña de azúcar natural.",
+    image: "/images/Gemini_Generated_Image_2utjwp2utjwp2utj.png", bgColor: "#F5ECE6", accent: "#9B7B4A", category: "Hidratante"
+  },
+  { id: 17, name: "Cuccio - Lavender & Chamomile", description: "Mantequilla hidratante no grasa, ideal para relajar y calmar la piel.", ingredients: "Extracto de lavanda, manzanilla.", image: "/images/cuccio_lavender.png", bgColor: "#E8EBD8", accent: "#7D8B5E", category: "Calmante" },
+  {
+    id: 18, name: "Cuccio - Micro Exfoliant Milk & Honey",
+    description: "Micro-exfoliante avanzado que pule delicadamente las capas superiores de la piel, proporcionando suavidad instantánea.", ingredients: "Micro-gránulos naturales, miel, extractos de leche.",
+    image: "/images/Gemini_Generated_Image_rv02x6rv02x6rv02.png", bgColor: "#EAE0D5", accent: "#A67B5B", category: "Revitalizante"
   },
   {
-    id: 23,
-    name: "Amber & Sandalwood Cream",
-    description: "Crema intensiva reparadora con un perfil aromático cálido y terroso que sella la humedad durante 24 horas.",
-    ingredients: "Aceite esencial de sándalo, extracto de ámbar, ceramidas complejas.",
-    image: "/images/Gemini_Generated_Image_gjgmf3gjgmf3gjgm.png",
-    bgColor: "#F5EDE4",
-    accent: "#CD853F",
-    category: "Rejuvenecedor"
-  }
-
-
+    id: 19, name: "Cuccio - Micro Exfoliant Vanilla Bean & Sugar",
+    description: "Exfoliante de granulometría fina que acondiciona la piel extremadamente seca dejándola renovada y sedosa al tacto.", ingredients: "Azúcar moreno fino, extracto de vainilla.",
+    image: "/images/Gemini_Generated_Image_2pgobg2pgobg2pgo.png", bgColor: "#F3EFE6", accent: "#8B6B4A", category: "Revitalizante"
+  },
+  { id: 20, name: "Cuccio - Milk & Honey", description: "Fórmula hidratante intensiva que retiene la humedad para revelar un brillo natural y saludable.", ingredients: "Miel, leche, extractos botánicos.", image: "/images/cuccio_milk_honey.png", bgColor: "#EDE6DA", accent: "#C9A96E", category: "Hidratante" },
+  { id: 21, name: "Cuccio - Pomegranate & Fig", description: "Mantequilla rica en antioxidantes con efecto anti-edad y revitalizante para la piel del cuerpo.", ingredients: "Granada, higo.", image: "/images/cuccio_pomegranate.png", bgColor: "#E8EBD8", accent: "#7A5E8B", category: "Rejuvenecedor" },
+  { id: 22, name: "Cuccio - Sweet Almond", description: "Fórmula hidratante rica en nutrientes para restaurar y mantener la suavidad natural de la piel.", ingredients: "Almendra dulce, vitamina E.", image: "/images/cuccio_sweet_almond.png", bgColor: "#F3EFE6", accent: "#A67B5B", category: "Hidratante" },
+  { id: 23, name: "Cuccio - Vanilla Bean & Sugar", description: "Mantequilla corporal con un aroma reconfortante que acondiciona y suaviza intensamente la piel.", ingredients: "Vainilla, caña de azúcar.", image: "/images/cuccio_vanilla_bean.png", bgColor: "#EDE6DA", accent: "#9B7B4A", category: "Hidratante" },
+  { id: 24, name: "Cuccio - Whipped Hemp", description: "Mantequilla revitalizante batida para una absorción superior y nutrición profunda.", ingredients: "Aceite de semilla de cáñamo, Cupuaçu, Chía.", image: "/images/cuccio_whipped_hemp.png", bgColor: "#E5ECD9", accent: "#5C7844", category: "Revitalizante" },
+  { id: 25, name: "Cuccio - White Truffle Souffle", description: "Body butter souffle de lujo con textura ultra ligera para una hidratación profunda y rica.", ingredients: "Trufa blanca, antioxidantes naturales.", image: "/images/cuccio_white_truffle.png", bgColor: "#F5F5F5", accent: "#8A8276", category: "Hidratante" }
 ];
 
 const CATEGORIES = ["Todos", "Hidratante", "Calmante", "Revitalizante", "Rejuvenecedor"];
