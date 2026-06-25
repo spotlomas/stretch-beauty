@@ -603,7 +603,7 @@ export default function App() {
           {currentView === "about" && (
             <motion.div key="about" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
               <div className="page-hero">
-                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1400" alt="Nuestra Historia" className="page-hero-img" />
+                <img src="/images/baneer.png" alt="Nuestra Historia" className="page-hero-img" />
                 <div className="page-hero-overlay" />
                 <div className="page-hero-content">
                   <p className="hero-eyebrow" style={{ color: "rgba(255,255,255,0.6)" }}>Inter Spa Distribution</p>
