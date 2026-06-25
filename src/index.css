@@ -1,15 +1,50 @@
 @import "tailwindcss";
 
 /* ══════════════════════════════════════════════════════════════════
-   STRETCH — Sistema de Diseño Global
+   INTER SPA — Sistema de Diseño "Quiet Luxury" (basado en Stitch)
    ══════════════════════════════════════════════════════════════════ */
 
-/* ── Tipografías ── */
-.font-playfair {
-  font-family: 'Playfair Display', serif;
+@theme {
+  /* Tipografías */
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Colores de superficie */
+  --color-surface: #f9f9f9;
+  --color-surface-dim: #dadada;
+  --color-surface-bright: #f9f9f9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f3;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-high: #e8e8e8;
+  --color-surface-container-highest: #e2e2e2;
+  --color-on-surface: #1a1c1c;
+  --color-on-surface-variant: #444748;
+  --color-outline: #747878;
+  --color-outline-variant: #c4c7c7;
+
+  /* Marca */
+  --color-ink: #1a1a1a;
+  --color-on-ink: #ffffff;
+  --color-forest: #1b3022;
+  --color-forest-light: #4d6453;
+  --color-forest-container: #cde6d1;
+  --color-warm-gray: #e5e5e5;
+
+  /* Radios */
+  --radius-sm: 0.25rem;
+  --radius-DEFAULT: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
-.font-inter {
+/* ── Tipografías de utilidad ── */
+.font-display {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-body {
   font-family: 'Inter', sans-serif;
 }
 
@@ -31,18 +66,34 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #F4F3ED;
-  color: #2A2A2A;
+  background-color: #f9f9f9;
+  color: #1a1c1c;
   overflow-x: hidden;
 }
 
-/* ── Animación de zoom en imágenes de categoría ── */
+/* ── Sombras suaves "Quiet Luxury" ── */
+.shadow-soft {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-soft-hover:hover {
+  box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Glassmorphism para nav ── */
+.glass-nav {
+  background-color: rgba(249, 249, 249, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Animación de zoom en imágenes ── */
 .image-zoom-hover img {
   transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .image-zoom-hover:hover img {
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 /* ── Botón flotante de WhatsApp con pulso ── */
@@ -56,10 +107,12 @@ body {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
   }
+
   70% {
     transform: scale(1);
     box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
   }
+
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
@@ -72,16 +125,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F4F3ED;
+  background: #f9f9f9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1D1D1;
+  background: #d1d1d1;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A3A3A3;
+  background: #a3a3a3;
 }
 
 /* ── Utilidades adicionales ── */
