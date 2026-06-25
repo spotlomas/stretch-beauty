@@ -716,8 +716,6 @@ export default function App() {
                   </div>
                 </div>
                 <div className="about-images">
-                  <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=700" alt="Ciencia" className="about-img" />
-                  <img src="https://images.unsplash.com/photo-1556228852-80b6e9c1e7c0?auto=format&fit=crop&q=80&w=700" alt="Naturaleza" className="about-img about-img-offset" />
                 </div>
               </section>
             </motion.div>
@@ -727,7 +725,7 @@ export default function App() {
           {currentView === "contact" && (
             <motion.div key="contact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
               <div className="page-hero">
-                <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&q=80&w=1400" alt="Contacto" className="page-hero-img" />
+                <img src="/images/banner2.png" alt="Contacto" className="page-hero-img" />
                 <div className="page-hero-overlay" />
                 <div className="page-hero-content">
                   <p className="hero-eyebrow" style={{ color: "rgba(255,255,255,0.6)" }}>Estamos aquí para ti</p>
