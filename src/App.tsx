@@ -318,7 +318,7 @@ export default function App() {
               <section id="coleccion" className="collection-section">
                 <div className="collection-header">
                   <div>
-                    <p className="section-eyebrow">Colección 2025</p>
+                    <p className="section-eyebrow">Colección 2026</p>
                     <h2 className="section-title">Mantequillas Botánicas</h2>
                   </div>
                   <p className="section-count">{PRODUCTS_DATA.length} formulaciones</p>

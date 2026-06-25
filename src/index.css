@@ -522,6 +522,12 @@ body {
   }
 }
 
+/* Rellena el hueco de la última fila cuando hay número impar de productos */
+.products-grid::after {
+  content: '';
+  background: #F7F4EF;
+}
+
 /* ── Product Card ── */
 .product-card {
   background: #F7F4EF;
@@ -538,17 +544,16 @@ body {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
   overflow: hidden;
 }
 
 .product-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.65s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
