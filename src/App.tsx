@@ -55,6 +55,16 @@ const PRODUCTS_DATA = [
   { id: 5, name: "Pomegranate & Fig", description: "Potente fórmula rejuvenecedora que aprovecha las propiedades antioxidantes de las frutas para nutrir y proteger.", ingredients: "Extracto de granada, extracto de higo, nutrientes esenciales regenerativos.", image: "/images/pomegranate_fig.png", bgColor: "#E8EBD8", accent: "#7A5E8B", category: "Rejuvenecedor" },
   { id: 6, name: "White Limetta & Aloe", description: "Una experiencia refrescante e hidrorreguladora ideal para mantener la piel suave, fresca y calmada todo el día.", ingredients: "Extracto de limeta blanca, gel purificado de aloe vera, factores de hidratación natural.", image: "/images/white_limetta_aloe.png", bgColor: "#DDE8D8", accent: "#3A7A6A", category: "Calmante" },
   { id: 7, name: "Coconut & White Ginger", description: "Fórmula ultra-hidratante que alivia las zonas más ásperas del cuerpo, aportando tersura y un escudo emoliente.", ingredients: "Aceite de coco fraccionado, extracto de jengibre blanco, aceites acondicionadores ligeros.", image: "/images/coconut_white_ginger.png", bgColor: "#EDE6DA", accent: "#8B7355", category: "Hidratante" },
+
+  // --- NUEVOS PRODUCTOS INTEGRADOS ---
+  { id: 8, name: "Cuccio - Lavender & Chamomile", description: "Mantequilla hidratante no grasa, ideal para relajar y calmar la piel.", ingredients: "Extracto de lavanda, manzanilla.", image: "Gemini_Generated_Image_m04kcm04kcm04kcm.png", bgColor: "#E8EBD8", accent: "#7D8B5E", category: "Calmante" },
+  { id: 9, name: "Cuccio - Milk & Honey", description: "Fórmula hidratante intensiva que retiene la humedad para revelar un brillo natural y saludable.", ingredients: "Miel, leche, extractos botánicos.", image: "Gemini_Generated_Image_u6yezeu6yezeu6ye.png", bgColor: "#EDE6DA", accent: "#C9A96E", category: "Hidratante" },
+  { id: 10, name: "Cuccio - Pomegranate & Fig", description: "Mantequilla rica en antioxidantes con efecto anti-edad y revitalizante para la piel del cuerpo.", ingredients: "Granada, higo.", image: "Gemini_Generated_Image_wj19btwj19btwj19.png", bgColor: "#E8EBD8", accent: "#7A5E8B", category: "Rejuvenecedor" },
+  { id: 11, name: "Cuccio - White Truffle Souffle", description: "Body butter souffle de lujo con textura ultra ligera para una hidratación profunda y rica.", ingredients: "Trufa blanca, antioxidantes naturales.", image: "Gemini_Generated_Image_fwf1z1fwf1z1fwf1.png", bgColor: "#F5F5F5", accent: "#8A8276", category: "Hidratante" },
+  { id: 12, name: "Cuccio - Vanilla Bean & Sugar", description: "Mantequilla corporal con un aroma reconfortante que acondiciona y suaviza intensamente la piel.", ingredients: "Vainilla, caña de azúcar.", image: "Gemini_Generated_Image_26i1jb26i1jb26i1.png", bgColor: "#EDE6DA", accent: "#9B7B4A", category: "Hidratante" },
+  { id: 13, name: "Cuccio - Sweet Almond", description: "Fórmula hidratante rica en nutrientes para restaurar y mantener la suavidad natural de la piel.", ingredients: "Almendra dulce, vitamina E.", image: "Gemini_Generated_Image_a1bfe4a1bfe4a1bf.png", bgColor: "#F3EFE6", accent: "#A67B5B", category: "Hidratante" },
+  { id: 14, name: "Cuccio - Citrus & Wild Berry", description: "Mantequilla revitalizante con un refrescante toque cítrico y de frutos del bosque para despertar la piel.", ingredients: "Cítricos, bayas silvestres.", image: "Gemini_Generated_Image_8w5t3g8w5t3g8w5t.png", bgColor: "#DDE8D8", accent: "#4A7A5E", category: "Revitalizante" },
+  { id: 15, name: "Cuccio - Whipped Hemp", description: "Mantequilla revitalizante batida para una absorción superior y nutrición profunda.", ingredients: "Aceite de semilla de cáñamo, Cupuaçu, Chía.", image: "Gemini_Generated_Image_xfuj49xfuj49xfuj.png", bgColor: "#E5ECD9", accent: "#5C7844", category: "Revitalizante" },
 ];
 
 const CATEGORIES = ["Todos", "Hidratante", "Calmante", "Revitalizante", "Rejuvenecedor"];
@@ -206,7 +216,7 @@ function ProductCard({ product, index, onClick, inGrid = false }: {
         </div>
       </div>
       <div className="product-info">
-        <p className="product-category">Mantequilla Hidratante</p>
+        <p className="product-category">{product.category}</p>
         <p className="product-name">{product.name}</p>
         <div className="product-accent-line" style={{ backgroundColor: product.accent }} />
       </div>
@@ -249,7 +259,7 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             <img src={product.image} alt={product.name} className="modal-img" />
           </div>
           <div className="modal-body">
-            <p className="modal-cat">Mantequilla Hidratante</p>
+            <p className="modal-cat">{product.category}</p>
             <h2 className="modal-title">{product.name}</h2>
             <div className="modal-divider" style={{ backgroundColor: product.accent }} />
             <div className="modal-section">
@@ -434,8 +444,6 @@ export default function App() {
     else if (link === "about us") setCurrentView("about");
     else if (link === "contact") setCurrentView("contact");
   };
-
-
 
   const homeFiltered = PRODUCTS_DATA
     .filter(p => {
@@ -695,7 +703,7 @@ export default function App() {
             <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="footer-social">{icon}</a>
           ))}
         </div>
-        <p className="footer-copy">© 2025 Inter Spa Distribution · Todos los derechos reservados</p>
+        <p className="footer-copy">© 2026 Inter Spa Distribution · Todos los derechos reservados</p>
       </footer>
 
       {/* WHATSAPP FAB */}
