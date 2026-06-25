@@ -66,6 +66,90 @@ const PRODUCTS_DATA = [
   { id: 13, name: "Cuccio - Sweet Almond", description: "Fórmula hidratante rica en nutrientes para restaurar y mantener la suavidad natural de la piel.", ingredients: "Almendra dulce, vitamina E.", image: "/images/cuccio_sweet_almond.png", bgColor: "#F3EFE6", accent: "#A67B5B", category: "Hidratante" },
   { id: 14, name: "Cuccio - Citrus & Wild Berry", description: "Mantequilla revitalizante con un refrescante toque cítrico y de frutos del bosque para despertar la piel.", ingredients: "Cítricos, bayas silvestres.", image: "/images/cuccio_citrus_berry.png", bgColor: "#DDE8D8", accent: "#4A7A5E", category: "Revitalizante" },
   { id: 15, name: "Cuccio - Whipped Hemp", description: "Mantequilla revitalizante batida para una absorción superior y nutrición profunda.", ingredients: "Aceite de semilla de cáñamo, Cupuaçu, Chía.", image: "/images/cuccio_whipped_hemp.png", bgColor: "#E5ECD9", accent: "#5C7844", category: "Revitalizante" },
+
+  // --- NUEVOS PRODUCTOS (IMÁGENES GENERADAS) ---
+  {
+    id: 16,
+    name: "Botanical Nectar Oil",
+    description: "Aceite corporal ligero infundido con extractos puros para una piel luminosa y profundamente nutrida.",
+    ingredients: "Aceite de jojoba orgánico, extractos florales, vitamina E.",
+    image: "/images/Gemini_Generated_Image_5ps1e15ps1e15ps1.png",
+    bgColor: "#F5F0E6",
+    accent: "#D4AF37",
+    category: "Hidratante"
+  },
+  {
+    id: 17,
+    name: "Sea Kelp & Salt Exfoliant",
+    description: "Exfoliante renovador con sales finas que purifica y suaviza la textura de la piel, preparándola para la hidratación.",
+    ingredients: "Sal marina fina, extracto de algas, aceites esenciales puros.",
+    image: "/images/Gemini_Generated_Image_7kkepa7kkepa7kke.png",
+    bgColor: "#E0EAE5",
+    accent: "#5C8A79",
+    category: "Revitalizante"
+  },
+  {
+    id: 18,
+    name: "Green Tea & Lotus Mask",
+    description: "Mascarilla corporal antioxidante que purifica, calma profundamente y restaura el equilibrio natural.",
+    ingredients: "Extracto de té verde, flor de loto, arcilla blanca purificada.",
+    image: "/images/Gemini_Generated_Image_but25rbut25rbut2.png",
+    bgColor: "#E5ECD9",
+    accent: "#6B8E23",
+    category: "Calmante"
+  },
+  {
+    id: 19,
+    name: "Rose Quartz Elixir",
+    description: "Emulsión sedosa con sutiles notas florales diseñada para devolver la elasticidad y luminosidad juvenil.",
+    ingredients: "Agua de rosas destilada, escualano vegetal, péptidos.",
+    image: "/images/Gemini_Generated_Image_2pgobg2pgobg2pgo.png",
+    bgColor: "#F9ECEC",
+    accent: "#DDA0DD",
+    category: "Rejuvenecedor"
+  },
+  {
+    id: 20,
+    name: "Charcoal Detox Polish",
+    description: "Tratamiento desintoxicante de alto rendimiento que limpia los poros y renueva la epidermis de manera suave.",
+    ingredients: "Carbón activado, extractos botánicos clarificantes.",
+    image: "/images/Gemini_Generated_Image_rv02x6rv02x6rv02.png",
+    bgColor: "#E8E8E8",
+    accent: "#4A4A4A",
+    category: "Revitalizante"
+  },
+  {
+    id: 21,
+    name: "Wild Orchid Butter",
+    description: "Mantequilla rica y exótica que proporciona hidratación profunda con un aroma floral cautivador y elegante.",
+    ingredients: "Extracto de orquídea silvestre, manteca de karité prensada en frío.",
+    image: "/images/Gemini_Generated_Image_2s1ncw2s1ncw2s1n.png",
+    bgColor: "#F0E6F5",
+    accent: "#8A2BE2",
+    category: "Hidratante"
+  },
+  {
+    id: 22,
+    name: "Citrus Blossom Gel",
+    description: "Gel refrescante de rápida absorción ideal para energizar, tonificar y despertar los sentidos por la mañana.",
+    ingredients: "Extracto de flor de naranjo, vitamina C estabilizada, aloe vera.",
+    image: "/images/Gemini_Generated_Image_2utjwp2utjwp2utj.png",
+    bgColor: "#FFF5E6",
+    accent: "#FF8C00",
+    category: "Revitalizante"
+  },
+  {
+    id: 23,
+    name: "Amber & Sandalwood Cream",
+    description: "Crema intensiva reparadora con un perfil aromático cálido y terroso que sella la humedad durante 24 horas.",
+    ingredients: "Aceite esencial de sándalo, extracto de ámbar, ceramidas complejas.",
+    image: "/images/Gemini_Generated_Image_gjgmf3gjgmf3gjgm.png",
+    bgColor: "#F5EDE4",
+    accent: "#CD853F",
+    category: "Rejuvenecedor"
+  }
+
+
 ];
 
 const CATEGORIES = ["Todos", "Hidratante", "Calmante", "Revitalizante", "Rejuvenecedor"];
