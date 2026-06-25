@@ -1,11 +1,28 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Menu, X, MessageCircle, ArrowRight, Gem, FlaskConical, HeartHandshake, ArrowUpRight } from "lucide-react";
+import {
+  Menu, X, MessageCircle, ArrowRight, Gem, FlaskConical,
+  HeartHandshake, ArrowUpRight, Search, SlidersHorizontal, ChevronDown
+} from "lucide-react";
+
+/* ─── TIPOS ─── */
+type View = "home" | "catalog" | "about" | "contact";
+
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  ingredients: string;
+  image: string;
+  bgColor: string;
+  accent: string;
+  category: string;
+}
 
 /* ─── DATOS ─── */
 const NAV_DATA = {
   brand: "Inter Spa",
-  links: ["home", "about us", "contact"] as const,
+  links: ["home", "catalogo", "about us", "contact"] as const,
 };
 
 const SOCIAL_DATA = {
@@ -30,24 +47,21 @@ const VALUES_DATA = [
 
 const MARQUEE_WORDS = ["Elegancia", "·", "Bienestar", "·", "Pureza", "·", "Innovación", "·", "Belleza", "·", "Natura", "·", "Elegancia", "·", "Bienestar", "·", "Pureza", "·", "Innovación", "·", "Belleza", "·", "Natura", "·"];
 
-interface Product {
-  id: number;
-  name: string;
-  description: string;
-  ingredients: string;
-  image: string;
-  bgColor: string;
-  accent: string;
-}
+const PRODUCTS_DATA = [
+  { id: 1, name: "Milk & Honey", description: "Crema hidratante no grasa de absorción profunda diseñada para suavizar y brindar un aspecto radiante a la piel de manos, pies y cuerpo.", ingredients: "Extracto de miel pura, proteínas de leche, lípidos hidratantes naturales.", image: "/images/milk_and_honey.png", bgColor: "#EDE6DA", accent: "#C9A96E", category: "Hidratante" },
+  { id: 2, name: "Lavender & Chamomile", description: "Fórmula hidratante ligera y calmante. Ayuda a relajar la piel estresada mientras retiene la humedad natural.", ingredients: "Aceite esencial de lavanda, extracto de manzanilla, antioxidantes botánicos.", image: "/images/lavender_chamomile.png", bgColor: "#E8EBD8", accent: "#7D8B5E", category: "Calmante" },
+  { id: 3, name: "Citrus & Wild Berry", description: "Tratamiento intensivo revitalizante con propiedades antioxidantes que suavizan la textura de la piel.", ingredients: "Extractos cítricos, extracto de moras silvestres, vitamina C.", image: "/images/citrus_wild_berry.png", bgColor: "#DDE8D8", accent: "#4A7A5E", category: "Revitalizante" },
+  { id: 4, name: "Vanilla Bean & Sugar", description: "Exquisita infusión hidratante que reconforta la piel seca, mejorando la elasticidad y dejando un acabado sedoso.", ingredients: "Extracto de vainilla de Madagascar, caña de azúcar natural, complejos emolientes.", image: "/images/vanilla_bean_sugar.png", bgColor: "#EDE6DA", accent: "#9B7B4A", category: "Hidratante" },
+  { id: 5, name: "Pomegranate & Fig", description: "Potente fórmula rejuvenecedora que aprovecha las propiedades antioxidantes de las frutas para nutrir y proteger.", ingredients: "Extracto de granada, extracto de higo, nutrientes esenciales regenerativos.", image: "/images/pomegranate_fig.png", bgColor: "#E8EBD8", accent: "#7A5E8B", category: "Rejuvenecedor" },
+  { id: 6, name: "White Limetta & Aloe", description: "Una experiencia refrescante e hidrorreguladora ideal para mantener la piel suave, fresca y calmada todo el día.", ingredients: "Extracto de limeta blanca, gel purificado de aloe vera, factores de hidratación natural.", image: "/images/white_limetta_aloe.png", bgColor: "#DDE8D8", accent: "#3A7A6A", category: "Calmante" },
+  { id: 7, name: "Coconut & White Ginger", description: "Fórmula ultra-hidratante que alivia las zonas más ásperas del cuerpo, aportando tersura y un escudo emoliente.", ingredients: "Aceite de coco fraccionado, extracto de jengibre blanco, aceites acondicionadores ligeros.", image: "/images/coconut_white_ginger.png", bgColor: "#EDE6DA", accent: "#8B7355", category: "Hidratante" },
+];
 
-const PRODUCTS_DATA: Product[] = [
-  { id: 1, name: "Milk & Honey", description: "Crema hidratante no grasa de absorción profunda diseñada para suavizar y brindar un aspecto radiante a la piel de manos, pies y cuerpo.", ingredients: "Extracto de miel pura, proteínas de leche, lípidos hidratantes naturales.", image: "/images/milk_and_honey.png", bgColor: "#EDE6DA", accent: "#C9A96E" },
-  { id: 2, name: "Lavender & Chamomile", description: "Fórmula hidratante ligera y calmante. Ayuda a relajar la piel estresada mientras retiene la humedad natural.", ingredients: "Aceite esencial de lavanda, extracto de manzanilla, antioxidantes botánicos.", image: "/images/lavender_chamomile.png", bgColor: "#E8EBD8", accent: "#7D8B5E" },
-  { id: 3, name: "Citrus & Wild Berry", description: "Tratamiento intensivo revitalizante con propiedades antioxidantes que suavizan la textura de la piel.", ingredients: "Extractos cítricos, extracto de moras silvestres, vitamina C.", image: "/images/citrus_wild_berry.png", bgColor: "#DDE8D8", accent: "#4A7A5E" },
-  { id: 4, name: "Vanilla Bean & Sugar", description: "Exquisita infusión hidratante que reconforta la piel seca, mejorando la elasticidad y dejando un acabado sedoso.", ingredients: "Extracto de vainilla de Madagascar, caña de azúcar natural, complejos emolientes.", image: "/images/vanilla_bean_sugar.png", bgColor: "#EDE6DA", accent: "#9B7B4A" },
-  { id: 5, name: "Pomegranate & Fig", description: "Potente fórmula rejuvenecedora que aprovecha las propiedades antioxidantes de las frutas para nutrir y proteger.", ingredients: "Extracto de granada, extracto de higo, nutrientes esenciales regenerativos.", image: "/images/pomegranate_fig.png", bgColor: "#E8EBD8", accent: "#7A5E8B" },
-  { id: 6, name: "White Limetta & Aloe", description: "Una experiencia refrescante e hidrorreguladora ideal para mantener la piel suave, fresca y calmada todo el día.", ingredients: "Extracto de limeta blanca, gel purificado de aloe vera, factores de hidratación natural.", image: "/images/white_limetta_aloe.png", bgColor: "#DDE8D8", accent: "#3A7A6A" },
-  { id: 7, name: "Coconut & White Ginger", description: "Fórmula ultra-hidratante que alivia las zonas más ásperas del cuerpo, aportando tersura y un escudo emoliente.", ingredients: "Aceite de coco fraccionado, extracto de jengibre blanco, aceites acondicionadores ligeros.", image: "/images/coconut_white_ginger.png", bgColor: "#EDE6DA", accent: "#8B7355" },
+const CATEGORIES = ["Todos", "Hidratante", "Calmante", "Revitalizante", "Rejuvenecedor"];
+const SORT_OPTIONS = [
+  { value: "default", label: "Destacados" },
+  { value: "az", label: "A → Z" },
+  { value: "za", label: "Z → A" },
 ];
 
 /* ─── ICONOS ─── */
@@ -82,8 +96,97 @@ function MarqueeStrip() {
   );
 }
 
+/* ─── FILTER BAR ─── */
+function FilterBar({ search, setSearch, activeCategory, setActiveCategory, sort, setSort, showSort = true }: {
+  search: string;
+  setSearch: (v: string) => void;
+  activeCategory: string;
+  setActiveCategory: (v: string) => void;
+  sort: string;
+  setSort: (v: string) => void;
+  showSort?: boolean;
+}) {
+  const [sortOpen, setSortOpen] = useState(false);
+
+  return (
+    <div className="filter-bar">
+      <div className="filter-bar-top">
+        {/* Search */}
+        <div className="filter-search-wrap">
+          <Search size={14} className="filter-search-icon" />
+          <input
+            type="text"
+            placeholder="Buscar producto..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="filter-search-input"
+          />
+          {search && (
+            <button onClick={() => setSearch("")} className="filter-clear-btn">
+              <X size={12} />
+            </button>
+          )}
+        </div>
+
+        {/* Sort dropdown */}
+        {showSort && (
+          <div className="filter-sort-wrap">
+            <button
+              className="filter-sort-btn"
+              onClick={() => setSortOpen(o => !o)}
+            >
+              <SlidersHorizontal size={13} />
+              {SORT_OPTIONS.find(o => o.value === sort)?.label}
+              <ChevronDown size={12} style={{ transform: sortOpen ? "rotate(180deg)" : "none", transition: "transform .2s" }} />
+            </button>
+            <AnimatePresence>
+              {sortOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.18 }}
+                  className="filter-sort-dropdown"
+                >
+                  {SORT_OPTIONS.map(o => (
+                    <button
+                      key={o.value}
+                      className={`filter-sort-option${sort === o.value ? " active" : ""}`}
+                      onClick={() => { setSort(o.value); setSortOpen(false); }}
+                    >
+                      {o.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
+      </div>
+
+      {/* Category pills */}
+      <div className="filter-pills">
+        {CATEGORIES.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setActiveCategory(cat)}
+            className={`filter-pill${activeCategory === cat ? " filter-pill-active" : ""}`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ─── PRODUCT CARD ─── */
-function ProductCard({ product, index, onClick }: { product: Product; index: number; onClick: () => void }) {
+function ProductCard({ product, index, onClick, inGrid = false }: {
+  product: Product;
+  index: number;
+  onClick: () => void;
+  inGrid?: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-30px" });
 
@@ -94,7 +197,7 @@ function ProductCard({ product, index, onClick }: { product: Product; index: num
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       onClick={onClick}
-      className="product-card"
+      className={`product-card${inGrid ? " product-card-catalog" : ""}`}
     >
       <div className="product-img-wrap" style={{ backgroundColor: product.bgColor }}>
         <img src={product.image} alt={product.name} className="product-img" />
@@ -217,20 +320,134 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
   );
 }
 
-/* ─── APP ─── */
-type View = "home" | "about" | "contact";
+/* ─── CATALOG VIEW ─── */
+function CatalogView({ onProductClick }: { onProductClick: (p: Product) => void }) {
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [sort, setSort] = useState("default");
 
+  const filtered = PRODUCTS_DATA
+    .filter(p => {
+      const matchesSearch = p.name.toLowerCase().includes(search.toLowerCase());
+      const matchesCat = activeCategory === "Todos" || p.category === activeCategory;
+      return matchesSearch && matchesCat;
+    })
+    .sort((a, b) => {
+      if (sort === "az") return a.name.localeCompare(b.name);
+      if (sort === "za") return b.name.localeCompare(a.name);
+      return 0;
+    });
+
+  return (
+    <motion.div key="catalog" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
+      {/* Page Header */}
+      <div className="catalog-header-section">
+        <motion.p
+          initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="section-eyebrow" style={{ textAlign: "center" }}
+        >
+          Colección 2026
+        </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="catalog-page-title"
+        >
+          Nuestro Catálogo
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+          transition={{ delay: 0.35, duration: 0.5 }}
+          className="catalog-page-sub"
+        >
+          Formulaciones botánicas de alto rendimiento, curadas para profesionales y entusiastas del bienestar.
+        </motion.p>
+      </div>
+
+      <MarqueeStrip />
+
+      {/* Filter Bar */}
+      <div className="catalog-filter-container">
+        <FilterBar
+          search={search}
+          setSearch={setSearch}
+          activeCategory={activeCategory}
+          setActiveCategory={setActiveCategory}
+          sort={sort}
+          setSort={setSort}
+          showSort={true}
+        />
+      </div>
+
+      {/* Results count */}
+      <div className="catalog-results-row">
+        <p className="catalog-results-count">
+          {filtered.length} {filtered.length === 1 ? "formulación" : "formulaciones"}
+        </p>
+        <div className="catalog-results-line" />
+      </div>
+
+      {/* Grid */}
+      {filtered.length > 0 ? (
+        <div className="catalog-grid-wrap">
+          <div className="products-grid catalog-grid">
+            {filtered.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} inGrid onClick={() => onProductClick(p)} />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="catalog-empty">
+          <p className="catalog-empty-title">Sin resultados</p>
+          <p className="catalog-empty-sub">Intenta con otra búsqueda o categoría.</p>
+        </div>
+      )}
+
+      {/* CTA Banner */}
+      <section className="cta-banner" style={{ marginTop: "3rem" }}>
+        <p className="cta-banner-eye">Distribución Profesional</p>
+        <h2 className="cta-banner-title">¿Quieres llevar Inter Spa a tu negocio?</h2>
+        <a href={SOCIAL_DATA.whatsapp} target="_blank" rel="noopener noreferrer" className="cta-banner-btn">
+          Escríbenos <ArrowRight size={14} />
+        </a>
+      </section>
+    </motion.div>
+  );
+}
+
+/* ─── APP ─── */
 export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentView, setCurrentView] = useState<View>("home");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
+  // Home page filter state
+  const [homeSearch, setHomeSearch] = useState("");
+  const [homeCategory, setHomeCategory] = useState("Todos");
+  const [homeSort, setHomeSort] = useState("default");
+
   const navigate = (link: string) => {
     setMenuOpen(false);
     if (link === "home") setCurrentView("home");
+    else if (link === "catalogo") setCurrentView("catalog");
     else if (link === "about us") setCurrentView("about");
     else if (link === "contact") setCurrentView("contact");
   };
+
+
+
+  const homeFiltered = PRODUCTS_DATA
+    .filter(p => {
+      const matchesSearch = p.name.toLowerCase().includes(homeSearch.toLowerCase());
+      const matchesCat = homeCategory === "Todos" || p.category === homeCategory;
+      return matchesSearch && matchesCat;
+    })
+    .sort((a, b) => {
+      if (homeSort === "az") return a.name.localeCompare(b.name);
+      if (homeSort === "za") return b.name.localeCompare(a.name);
+      return 0;
+    });
 
   return (
     <div className="app-root">
@@ -265,7 +482,7 @@ export default function App() {
                   key={link}
                   initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.07 + i * 0.09 }}
-                  className={`overlay-link${currentView === (link === "home" ? "home" : link === "about us" ? "about" : "contact") ? " overlay-link-active" : ""}`}
+                  className={`overlay-link${currentView === (link === "home" ? "home" : link === "catalogo" ? "catalog" : link === "about us" ? "about" : "contact") ? " overlay-link-active" : ""}`}
                   onClick={() => navigate(link)}
                 >
                   <span className="overlay-link-num">0{i + 1}</span>
@@ -321,13 +538,39 @@ export default function App() {
                     <p className="section-eyebrow">Colección 2026</p>
                     <h2 className="section-title">Mantequillas Botánicas</h2>
                   </div>
-                  <p className="section-count">{PRODUCTS_DATA.length} formulaciones</p>
+                  <button
+                    onClick={() => navigate("catalogo")}
+                    className="collection-see-all"
+                  >
+                    Ver todo <ArrowUpRight size={12} />
+                  </button>
                 </div>
-                <div className="products-grid">
-                  {PRODUCTS_DATA.map((p, i) => (
-                    <ProductCard key={p.id} product={p} index={i} onClick={() => setSelectedProduct(p)} />
-                  ))}
+
+                {/* Filter Bar inline in home */}
+                <div className="home-filter-wrap">
+                  <FilterBar
+                    search={homeSearch}
+                    setSearch={setHomeSearch}
+                    activeCategory={homeCategory}
+                    setActiveCategory={setHomeCategory}
+                    sort={homeSort}
+                    setSort={setHomeSort}
+                    showSort={true}
+                  />
                 </div>
+
+                {homeFiltered.length > 0 ? (
+                  <div className="products-grid">
+                    {homeFiltered.map((p, i) => (
+                      <ProductCard key={p.id} product={p} index={i} onClick={() => setSelectedProduct(p)} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="catalog-empty" style={{ padding: "3rem 0" }}>
+                    <p className="catalog-empty-title">Sin resultados</p>
+                    <p className="catalog-empty-sub">Intenta con otra búsqueda o categoría.</p>
+                  </div>
+                )}
               </section>
 
               {/* CTA BANNER */}
@@ -342,10 +585,14 @@ export default function App() {
             </motion.div>
           )}
 
+          {/* CATALOG */}
+          {currentView === "catalog" && (
+            <CatalogView onProductClick={setSelectedProduct} />
+          )}
+
           {/* ABOUT */}
           {currentView === "about" && (
             <motion.div key="about" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
-
               <div className="page-hero">
                 <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1400" alt="Nuestra Historia" className="page-hero-img" />
                 <div className="page-hero-overlay" />
@@ -355,9 +602,7 @@ export default function App() {
                   <p className="page-hero-sub">Una empresa nacida del amor por la belleza auténtica y la pasión por llevar ingredientes excepcionales a quienes más los saben apreciar.</p>
                 </div>
               </div>
-
               <MarqueeStrip />
-
               <section className="values-section" style={{ paddingTop: "4rem", paddingBottom: "4rem" }}>
                 {VALUES_DATA.map(({ icon: Icon, title, text }, i) => (
                   <motion.div key={title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="value-card">
@@ -367,7 +612,6 @@ export default function App() {
                   </motion.div>
                 ))}
               </section>
-
               <section className="about-philosophy">
                 <div>
                   <p className="section-eyebrow">Filosofía</p>
@@ -383,14 +627,12 @@ export default function App() {
                   <img src="https://images.unsplash.com/photo-1556228852-80b6e9c1e7c0?auto=format&fit=crop&q=80&w=700" alt="Naturaleza" className="about-img about-img-offset" />
                 </div>
               </section>
-
             </motion.div>
           )}
 
           {/* CONTACT */}
           {currentView === "contact" && (
             <motion.div key="contact" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }}>
-
               <div className="page-hero">
                 <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&q=80&w=1400" alt="Contacto" className="page-hero-img" />
                 <div className="page-hero-overlay" />
@@ -400,7 +642,6 @@ export default function App() {
                   <p className="page-hero-sub">Encuentra la armonía perfecta entre innovación y bienestar.</p>
                 </div>
               </div>
-
               <section className="contact-section">
                 <div>
                   <p className="section-eyebrow">Contacto Directo</p>
@@ -431,7 +672,6 @@ export default function App() {
                   </a>
                 </div>
               </section>
-
             </motion.div>
           )}
 
