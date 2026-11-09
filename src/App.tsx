@@ -657,7 +657,7 @@ export default function App() {
                 <img src="/images/baneer.png" alt="Nuestra Historia" className="page-hero-img" />
                 <div className="page-hero-overlay" />
                 <div className="page-hero-content">
-                  <p className="hero-eyebrow" style={{ color: "rgba(255,255,255,0.6)" }}>Inter Spa Distribution</p>
+                  <p className="hero-eyebrow" style={{ color: "rgba(255,255,255,0.6)" }}>KOSMETICA</p>
                   <h1 className="page-hero-title">Nuestra Historia</h1>
                   <p className="page-hero-sub">Una empresa nacida del amor por la belleza auténtica y la pasión por llevar ingredientes excepcionales a quienes más los saben apreciar.</p>
                 </div>
@@ -677,7 +677,7 @@ export default function App() {
                   <p className="section-eyebrow">Filosofía</p>
                   <h2 className="section-title" style={{ marginBottom: "1.5rem" }}>Ciencia & Naturaleza</h2>
                   <div className="about-paragraphs">
-                    <p>En el corazón de <strong>Inter Spa</strong> reside una profunda reverencia por la sinergia entre el rigor clínico y la pureza botánica. Entendemos que los resultados más transformadores nacen de esta intersección.</p>
+                    <p>En el corazón de <strong>KOSMETICA</strong> reside una profunda reverencia por la sinergia entre el rigor clínico y la pureza botánica. Entendemos que los resultados más transformadores nacen de esta intersección.</p>
                     <p>Curamos cada ingrediente con cuidado, asegurando no solo la efectividad en tu piel, sino también un compromiso ético y sustentable con el medio ambiente y las comunidades productoras.</p>
                     <p>Cada fórmula es una declaración: que la belleza no tiene por qué elegir entre efectividad y conciencia.</p>
                   </div>
@@ -738,7 +738,7 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="is-footer">
-        <span className="footer-brand">Inter Spa</span>
+        <span className="footer-brand">KOSMETICA</span>
         <div className="footer-nav">
           {NAV_DATA.links.map(link => (
             <button key={link} onClick={() => navigate(link)} className="footer-link">{link}</button>
@@ -753,7 +753,7 @@ export default function App() {
             <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="footer-social">{icon}</a>
           ))}
         </div>
-        <p className="footer-copy">© 2026 Inter Spa Distribution · Todos los derechos reservados</p>
+        <p className="footer-copy">© 2026 KOSMETICA Distribution · Todos los derechos reservados</p>
       </footer>
 
       {/* WHATSAPP FAB */}
