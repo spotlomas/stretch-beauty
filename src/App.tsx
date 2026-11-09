@@ -21,7 +21,7 @@ interface Product {
 
 /* ─── DATOS ─── */
 const NAV_DATA = {
-  brand: "Inter Spa",
+  brand: "KOSMETICA",
   links: ["home", "catalogo", "about us", "contact"] as const,
 };
 
